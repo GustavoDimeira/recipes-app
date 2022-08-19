@@ -15,13 +15,13 @@ function Provider({ children }) {
   };
 
   useEffect(() => {
-    const number = 5;
+    const number = 6;
     const valid = /\S+@\S+\.\S+/;
     console.log(Password.length);
     console.log(valid.test(Email));
     if (valid.test(Email) && Password.length > number) {
       setButton(false);
-    } else {
+    } if (!valid.test(Email) || Password.length < number) {
       setButton(true);
     }
   }, [Email, Password]);
