@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import useApp from '../context/useApp';
 
 export default function Login() {
-  const { setEmail, setPassword, Button } = useContext(useApp);
+  const { setEmail, setPassword, Button, Email } = useContext(useApp);
   return (
     <div>
       <form>
@@ -29,7 +29,11 @@ export default function Login() {
           data-testid="login-submit-btn"
           type="button"
           disabled={ Button }
-          onClick={ () => { } }
+          onClick={ () => {
+            localStorage.setItem('user', JSON.stringify({ email: Email }));
+            localStorage.setItem('mealsToken', JSON.stringify(1));
+            localStorage.setItem('cocktailsToken', JSON.stringify(1));
+          } }
         >
           Enter
         </button>
