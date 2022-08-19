@@ -4,22 +4,21 @@ export default function Login() {
   return (
     <div>
       <form>
-        <label htmlFor="email">
-          <input
-            data-testid="email-input"
-            type="email"
-            placeholder="email"
-            id="email"
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            data-testid="password-input"
-            type="password"
-            placeholder="password"
-            id="password"
-          />
-        </label>
+
+        <input
+          data-testid="email-input"
+          type="email"
+          placeholder="email"
+          id="email"
+        />
+
+        <input
+          data-testid="password-input"
+          type="password"
+          placeholder="password"
+          id="password"
+        />
+
         <button
           data-testid="login-submit-btn"
           type="button"
