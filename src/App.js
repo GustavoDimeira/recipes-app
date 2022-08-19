@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import Login from './Pages/Login';
 
 function App() {
   return (
     <div>
-      <p>Grupo 33 (3g)</p>
+      <Login />
     </div>
   );
 }
