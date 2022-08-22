@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 export default function Header({ title, iconSearch }) {
+  const [showSearch, setshowSearch] = useState(false);
   const history = useHistory();
   return (
     <div>
@@ -21,11 +23,18 @@ export default function Header({ title, iconSearch }) {
             data-testid="profile-top-btn"
           />
         </button>
-        { iconSearch && <img
-          src={ SearchIcon }
-          alt="search"
-          data-testid="search-top-btn"
-        /> }
+        { iconSearch && (
+          <button
+            type="button"
+            onClick={ () => { setshowSearch(!showSearch); } }
+          >
+            <img
+              src={ SearchIcon }
+              alt="search"
+              data-testid="search-top-btn"
+            />
+          </button>) }
+        {showSearch && <SearchBar />}
       </header>
     </div>
   );
