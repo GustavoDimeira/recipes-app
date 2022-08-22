@@ -11,6 +11,7 @@ export default function Header({ title, iconSearch }) {
       <header>
         <h1 data-testid="page-title">{title}</h1>
         <button
+          data-testid="button-icon"
           type="button"
           onClick={ () => { history.push('/profile'); } }
         >
