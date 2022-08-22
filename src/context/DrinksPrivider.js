@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useApp from './useApp';
 
-function Provider({ children }) {
+function DrinksPrivider({ children }) {
   const contextValue = {
   };
 
   return <useApp.Provider value={ contextValue }>{children}</useApp.Provider>;
 }
 
-Provider.propTypes = {
+DrinksPrivider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
 };
 
-export default Provider;
+export default DrinksPrivider;
