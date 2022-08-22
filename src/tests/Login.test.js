@@ -41,6 +41,6 @@ describe('Testa a tela de login', () => {
     expect(passwordInput.value).toBe('senhadeteste')
     userEvent.click(submitButton)
     const { location: {pathname}  } = history;
-    expect(pathname).toBe('/food')
+    expect(pathname).toBe('/foods')
   })
 })

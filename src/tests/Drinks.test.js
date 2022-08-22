@@ -5,7 +5,7 @@ import { Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-describe('Testa tela Foods', () => {
+describe('Testa tela Drinks', () => {
   it('Deve renderizar a tela e seus componetes corretamente', () => {
     const history = createMemoryHistory();
     render(
@@ -13,7 +13,7 @@ describe('Testa tela Foods', () => {
         <App />
       </Router>
     );
-    history.push('/foods')
+    history.push('/drinks')
     const title = screen.getByTestId('page-title');
     const buttonIcon = screen.getByTestId('button-icon')
     const iconProfile = screen.getByTestId('profile-top-btn')
@@ -30,8 +30,6 @@ describe('Testa tela Foods', () => {
     userEvent.click(buttonIcon);
     const { location: {pathname}  } = history;
     expect(pathname).toBe('/profile')
-
-    history.push('/drinks')
-
+    history.push('/drinks/cervejinha')
   })
 })

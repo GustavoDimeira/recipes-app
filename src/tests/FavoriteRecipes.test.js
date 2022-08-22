@@ -5,7 +5,7 @@ import { Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-describe('Testa tela Foods', () => {
+describe('Testa tela Favorite Recipes', () => {
   it('Deve renderizar a tela e seus componetes corretamente', () => {
     const history = createMemoryHistory();
     render(
@@ -13,25 +13,15 @@ describe('Testa tela Foods', () => {
         <App />
       </Router>
     );
-    history.push('/foods')
+    history.push('/favorite-recipes')
     const title = screen.getByTestId('page-title');
     const buttonIcon = screen.getByTestId('button-icon')
     const iconProfile = screen.getByTestId('profile-top-btn')
-    const iconSearch = screen.getByTestId('search-top-btn')
-    const inputSearch = screen.queryByTestId('search-input')
     expect(title).toBeDefined();
-    expect(iconProfile).toBeDefined();
-    expect(iconSearch).toBeDefined();
+    expect(iconProfile).toBeDefined();;
 
-    userEvent.click(iconSearch);
-    expect(inputSearch).toBeDefined();
-    userEvent.type(inputSearch, 'xablau do tubiru')
-    expect(inputSearch).toBeDefined();
     userEvent.click(buttonIcon);
     const { location: {pathname}  } = history;
     expect(pathname).toBe('/profile')
-
-    history.push('/drinks')
-
   })
 })
