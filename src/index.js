@@ -4,14 +4,14 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Provider from './context/Provider';
+import FoodsProvider from './context/FoodsProvider';
 
 ReactDOM.render(
-  <Provider>
+  <FoodsProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>,
+  </FoodsProvider>,
   document.getElementById('root'),
 );
 
