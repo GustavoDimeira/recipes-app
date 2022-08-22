@@ -6,6 +6,7 @@ function Provider({ children }) {
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [Button, setButton] = useState('');
+
   const contextValue = {
     Email,
     setEmail,
@@ -17,8 +18,6 @@ function Provider({ children }) {
   useEffect(() => {
     const number = 6;
     const valid = /\S+@\S+\.\S+/;
-    console.log(Password.length);
-    console.log(valid.test(Email));
     if (valid.test(Email) && Password.length > number) {
       setButton(false);
     } if (!valid.test(Email) || Password.length < number) {

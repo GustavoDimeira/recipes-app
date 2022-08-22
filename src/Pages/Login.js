@@ -1,8 +1,22 @@
-import React, { useContext } from 'react';
-import useApp from '../context/useApp';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
-  const { setEmail, setPassword, Button, Email } = useContext(useApp);
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [Button, setButton] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    const number = 6;
+    const valid = /\S+@\S+\.\S+/;
+    if (valid.test(Email) && Password.length > number) {
+      setButton(false);
+    } if (!valid.test(Email) || Password.length < number) {
+      setButton(true);
+    }
+  }, [Email, Password]);
+
   return (
     <div>
       <form>
@@ -33,6 +47,7 @@ export default function Login() {
             localStorage.setItem('user', JSON.stringify({ email: Email }));
             localStorage.setItem('mealsToken', JSON.stringify(1));
             localStorage.setItem('cocktailsToken', JSON.stringify(1));
+            history.push('/foods');
           } }
         >
           Enter
