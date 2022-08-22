@@ -1,48 +1,46 @@
-import React from "react";
-import { screen, waitFor } from '@testing-library/react';
-import App from "../App";
-import userEvent from "@testing-library/user-event";
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
+import Login from '../Pages/Login'
+import App from '../App'
 
-import renderWithContext from './helpers/renderWithContext'
+describe('Testa a tela de login', () => {
+  it('Deve renderizar a tela de login corretamente', () => {
+    const history = createMemoryHistory();
 
-
-describe('Testes para a página de login', () => {
-  test('Se os campos de email e senha aparecem na tela', async () => {
-    
-    await waitFor(() => {
-      renderWithContext(<App />);
-    })
-   
+    render(
+      <Router history={history}>
+        <App />
+      </Router>
+    );
     const emailInput = screen.getByTestId('email-input')
-    expect(emailInput).toBeInTheDocument();
-   
     const passwordInput = screen.getByTestId('password-input')
+    const submitButton = screen.getByTestId('login-submit-btn')
+    expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+  })
+  it('Deve ser possível digitar nos inputs', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={history}>
+        <Login />
+      </Router>
+    );
+    const emailInput = screen.getByTestId('email-input')
+    const passwordInput = screen.getByTestId('password-input')
+    const submitButton = screen.getByTestId('login-submit-btn')
 
-    const buttonLogin = screen.getByRole('button', { name: /Enter/i });
-
-    userEvent.type(emailInput, 'email@email.com');
-    userEvent.type(passwordInput, '123ds6')
-    userEvent.click(buttonLogin)
-    
-  });
-
-  test('Se tem um botão com o texto Enter', () => {
-    
-    renderWithContext(<App />);
-
-    const buttonLogin = screen.getByRole('button', { name: /Enter/i });
-    
-    expect(buttonLogin).toBeInTheDocument();
-  });
-
-  test('Se tem o botão Enter está inicialmente desabilitado', () => {
-    
-    renderWithContext(<App />);
-
-    const buttonLogin = screen.getByRole('button', { name: /Enter/i });
-    expect(buttonLogin).toBeDisabled();
-
-  });
-
+    expect(submitButton).toBeDisabled()
+    userEvent.type(emailInput, 'teste@teste.com')
+    userEvent.type(passwordInput, 'senhadeteste')
+    expect(submitButton).not.toBeDisabled();
+    expect(emailInput.value).toBe('teste@teste.com')
+    expect(passwordInput.value).toBe('senhadeteste')
+    userEvent.click(submitButton)
+    const { location: {pathname}  } = history;
+    expect(pathname).toBe('/food')
+  })
 })
