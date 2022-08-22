@@ -18,7 +18,6 @@ describe('Testa a tela de login', () => {
     const emailInput = screen.getByTestId('email-input')
     const passwordInput = screen.getByTestId('password-input')
     const submitButton = screen.getByTestId('login-submit-btn')
-
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
