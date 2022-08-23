@@ -47,8 +47,9 @@ header {
 }
 
 .container-login {
-  border: 50px;
-  margin-left: 85vh;
-  margin-top: 35vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 30vh;
 }
 
