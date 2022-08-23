@@ -18,8 +18,8 @@ export default function Login() {
   }, [Email, Password]);
 
   return (
-    <div>
-      <form>
+    <div className="container-login">
+      <form className="login">
         <input
           data-testid="email-input"
           type="email"

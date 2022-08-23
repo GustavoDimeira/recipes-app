@@ -5,16 +5,19 @@ import { Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 import DrinksProvider from "../context/DrinksProvider";
+import FoodsProvider from "../context/FoodsProvider";
 
 describe("Testa tela Drinks", () => {
   it("Deve renderizar a tela e seus componetes corretamente", () => {
     const history = createMemoryHistory();
     render(
-      <DrinksProvider>
-        <Router history={history}>
-          <App />
-        </Router>
-      </DrinksProvider>
+      <FoodsProvider>
+        <DrinksProvider>
+          <Router history={history}>
+            <App />
+          </Router>
+        </DrinksProvider>
+      </FoodsProvider>
     );
     history.push("/drinks");
     const title = screen.getByTestId("page-title");
@@ -34,19 +37,30 @@ describe("Testa tela Drinks", () => {
     const ingredient3 = screen.getByTestId("first-letter-search-radio");
     const but = screen.getByTestId("exec-search-btn");
 
+  
+    expect(ingredient3).toBeDefined();
+    userEvent.click(ingredient3);
+    userEvent.type(inputSearch, "a");
     userEvent.click(but);
+    
     expect(ingredient1).toBeDefined();
     userEvent.click(ingredient1);
+    userEvent.type(inputSearch, "xablau do tubiru");
     userEvent.click(but);
+
     expect(ingredient2).toBeDefined();
     userEvent.click(ingredient2);
     userEvent.click(but);
+
     expect(ingredient3).toBeDefined();
     userEvent.click(ingredient3);
+    userEvent.type(inputSearch, "a");
     userEvent.click(but);
+
     expect(inputSearch).toBeDefined();
     userEvent.type(inputSearch, "xablau do tubiru");
     expect(inputSearch).toBeDefined();
+
     userEvent.click(buttonIcon);
     const {
       location: { pathname },
@@ -55,3 +69,4 @@ describe("Testa tela Drinks", () => {
     history.push("/drinks/cervejinha");
   });
 });
+

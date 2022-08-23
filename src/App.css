@@ -1,68 +1,54 @@
-.meals {
+header {
   align-items: center;
   background: #0fa36b;
   color: #464646;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.header-princ {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+.search-bar {
+  display: flex;
+  gap: 15px;
+  padding-bottom: 15px;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: white;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.login {
+  align-items: center;
+  background-color: hsl(157, 83%, 35%);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  justify-content: center;
+  width: 40vh;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.login:hover {
+  align-items: center;
+  background-color: hsl(157, 83%, 35%);
+  border: 1px solid white;
+  border-radius: 30px;
+  box-shadow: 1px 3px 8px rgb(194, 187, 187);
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  justify-content: center;
+  width: 40vh;
 }
 
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
+.container-login {
+  border: 50px;
+  margin-left: 85vh;
+  margin-top: 35vh;
 }
+

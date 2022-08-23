@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import useApp from '../context/useApp';
+import useFoods from '../context/useFoods';
 
 export default function SearchBar() {
   const {
@@ -8,16 +9,27 @@ export default function SearchBar() {
     setfiltro,
     filtro,
   } = useContext(useApp);
-  const { filter } = foods;
 
+  const {
+    filtroFoods,
+    setfiltroFoods,
+    foods1,
+    setfoods1,
+  } = useContext(useFoods);
+
+  const { filter } = foods;
+  const { filter1 } = foods1;
   return (
-    <div>
+    <div className="search-bar">
       <input
         type="text"
         data-testid="search-input"
         onChange={ ({ target }) => {
           setfoods({
             filter: { ...filter, inputValue: target.value },
+          });
+          setfoods1({
+            filter1: { ...filter1, inputValue: target.value },
           });
         } }
       />
@@ -27,9 +39,12 @@ export default function SearchBar() {
           setfoods({
             filter: { ...filter, valueIngrents: target.value },
           });
+          setfoods1({
+            filter1: { ...filter1, valueIngrents: target.value },
+          });
         } }
       >
-        ingredient
+
         <input
           name="search-radio"
           type="radio"
@@ -37,7 +52,8 @@ export default function SearchBar() {
           data-testid="ingredient-search-radio"
           value="Ingredient"
         />
-        Name
+        ingredient
+
         <input
           name="search-radio"
           type="radio"
@@ -45,7 +61,9 @@ export default function SearchBar() {
           data-testid="name-search-radio"
           value="Name"
         />
-        First letter
+        {' '}
+        Name
+
         <input
           name="search-radio"
           type="radio"
@@ -53,12 +71,15 @@ export default function SearchBar() {
           data-testid="first-letter-search-radio"
           value="First letter"
         />
+        {' '}
+        First letter
       </label>
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => {
           setfiltro(!filtro);
+          setfiltroFoods(!filtroFoods);
         } }
       >
         Buscar

@@ -9,9 +9,8 @@ export default function Header({ title, iconSearch }) {
   const [showSearch, setshowSearch] = useState(false);
   const history = useHistory();
   return (
-    <div>
-      <header>
-        <h1 data-testid="page-title">{title}</h1>
+    <header>
+      <div className="header-princ">
         <button
           data-testid="button-icon"
           type="button"
@@ -23,6 +22,7 @@ export default function Header({ title, iconSearch }) {
             data-testid="profile-top-btn"
           />
         </button>
+        <h1 data-testid="page-title">{title}</h1>
         { iconSearch && (
           <button
             type="button"
@@ -33,10 +33,10 @@ export default function Header({ title, iconSearch }) {
               alt="search"
               data-testid="search-top-btn"
             />
-          </button>) }
-        {showSearch && <SearchBar />}
-      </header>
-    </div>
+          </button>)}
+      </div>
+      {showSearch && <SearchBar />}
+    </header>
   );
 }
 Header.propTypes = {
