@@ -5,12 +5,15 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import FoodsProvider from './context/FoodsProvider';
+import DrinksProvider from './context/DrinksProvider';
 
 ReactDOM.render(
   <FoodsProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <DrinksProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </DrinksProvider>
   </FoodsProvider>,
   document.getElementById('root'),
 );
