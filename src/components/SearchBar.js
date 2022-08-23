@@ -20,7 +20,7 @@ export default function SearchBar() {
   const { filter } = foods;
   const { filter1 } = foods1;
   return (
-    <div>
+    <div className="search-bar">
       <input
         type="text"
         data-testid="search-input"
@@ -44,7 +44,7 @@ export default function SearchBar() {
           });
         } }
       >
-        ingredient
+
         <input
           name="search-radio"
           type="radio"
@@ -52,7 +52,8 @@ export default function SearchBar() {
           data-testid="ingredient-search-radio"
           value="Ingredient"
         />
-        Name
+        ingredient
+
         <input
           name="search-radio"
           type="radio"
@@ -60,7 +61,9 @@ export default function SearchBar() {
           data-testid="name-search-radio"
           value="Name"
         />
-        First letter
+        {' '}
+        Name
+
         <input
           name="search-radio"
           type="radio"
@@ -68,6 +71,8 @@ export default function SearchBar() {
           data-testid="first-letter-search-radio"
           value="First letter"
         />
+        {' '}
+        First letter
       </label>
       <button
         type="button"
