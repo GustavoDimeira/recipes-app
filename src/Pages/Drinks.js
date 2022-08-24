@@ -17,11 +17,8 @@ export default function Drinks() {
   }, [results]);
   return (
     <div>
-      {history.location.pathname === '/drinks' ? (
-        <Header title="Drinks" iconSearch />
-      ) : (
-        <p> Drinks </p>
-      )}
+      {history.location.pathname === '/drinks'
+        && <Header title="Drinks" iconSearch />}
       {resultsDrinksCopy
         && resultsDrinksCopy.map((el, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ el.idDrink }>
@@ -37,7 +34,7 @@ export default function Drinks() {
             </h1>
           </div>
         ))}
-      {history.location.pathname === '/drinks' ? <Footer /> : <p> Drinks </p>}
+      {history.location.pathname === '/drinks' && <Footer /> }
     </div>
   );
 }

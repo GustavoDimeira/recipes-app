@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, getByTestId, getByRole } from "@testing-library/react";
 import React from "react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
@@ -10,35 +10,40 @@ import FoodsProvider from "../context/FoodsProvider";
 describe("Testa tela Drinks", () => {
   it("Deve renderizar a tela e seus componetes corretamente", () => {
     const history = createMemoryHistory();
-    render(
-      <FoodsProvider>
-        <DrinksProvider>
-          <Router history={history}>
+    const { getByTestId } = render(
+      <Router history={history}>
+        <FoodsProvider>
+          <DrinksProvider>
             <App />
-          </Router>
-        </DrinksProvider>
-      </FoodsProvider>
+          </DrinksProvider>
+        </FoodsProvider>
+      </Router>
     );
     history.push("/drinks");
+
+  
     const title = screen.getByTestId("page-title");
     const buttonIcon = screen.getByTestId("button-icon");
     const iconProfile = screen.getByTestId("profile-top-btn");
     const iconSearch = screen.getByTestId("search-top-btn");
 
-    const buttonIconFooterDrinks = screen.getByTestId("button-icon-footer-drinks");
-    const buttonIconFooterFoods = screen.getByTestId("button-icon-footer-foods");
+    const buttonIconFooterDrinks = screen.getByTestId(
+      "button-icon-footer-drinks"
+    );
+    const buttonIconFooterFoods = screen.getByTestId(
+      "button-icon-footer-foods"
+    );
     expect(buttonIconFooterDrinks).toBeDefined();
     expect(buttonIconFooterFoods).toBeDefined();
     userEvent.click(buttonIconFooterDrinks);
     userEvent.click(buttonIconFooterFoods);
 
-    history.push("/drinks");
-    
     expect(title).toBeDefined();
     expect(iconProfile).toBeDefined();
     expect(iconSearch).toBeDefined();
 
-    userEvent.click(iconSearch);
+    const iconSearchbutton = screen.getByTestId("search-btn");
+    userEvent.click(iconSearchbutton);
 
     const inputSearch = screen.getByTestId("search-input");
     const ingredient1 = screen.getByTestId("ingredient-search-radio");
@@ -46,12 +51,11 @@ describe("Testa tela Drinks", () => {
     const ingredient3 = screen.getByTestId("first-letter-search-radio");
     const but = screen.getByTestId("exec-search-btn");
 
-  
     expect(ingredient3).toBeDefined();
     userEvent.click(ingredient3);
     userEvent.type(inputSearch, "a");
     userEvent.click(but);
-    
+
     expect(ingredient1).toBeDefined();
     userEvent.click(ingredient1);
     userEvent.type(inputSearch, "xablau do tubiru");
@@ -71,6 +75,7 @@ describe("Testa tela Drinks", () => {
     expect(inputSearch).toBeDefined();
 
     userEvent.click(buttonIcon);
+    history.push("/profile");
     const {
       location: { pathname },
     } = history;

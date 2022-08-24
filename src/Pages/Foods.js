@@ -17,11 +17,8 @@ export default function Foods() {
   }, [resultsFood]);
   return (
     <div>
-      {history.location.pathname === '/foods' ? (
-        <Header title="Foods" iconSearch />
-      ) : (
-        <p> foods</p>
-      )}
+      {history.location.pathname === '/foods'
+        && <Header title="Foods" iconSearch />}
 
       {resultsFoodCopy
         && resultsFoodCopy.map((el, index) => (
@@ -38,7 +35,7 @@ export default function Foods() {
             </h1>
           </div>
         ))}
-      {history.location.pathname === '/foods' ? <Footer /> : <p> foods</p>}
+      {history.location.pathname === '/foods' && <Footer /> }
     </div>
   );
 }

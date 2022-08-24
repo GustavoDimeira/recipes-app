@@ -57,6 +57,9 @@ function DrinksProvider({ children }) {
     if (results?.length === 1) {
       history.push(`/drinks/${results[0].idDrink}`);
     }
+    if (results?.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
   }, [history, results]);
 
   return <useApp.Provider value={ contextValue }>{children}</useApp.Provider>;
