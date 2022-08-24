@@ -8,13 +8,13 @@ import FoodsProvider from './context/FoodsProvider';
 import DrinksProvider from './context/DrinksProvider';
 
 ReactDOM.render(
-  <FoodsProvider>
-    <DrinksProvider>
-      <BrowserRouter>
+  <BrowserRouter>
+    <FoodsProvider>
+      <DrinksProvider>
         <App />
-      </BrowserRouter>
-    </DrinksProvider>
-  </FoodsProvider>,
+      </DrinksProvider>
+    </FoodsProvider>
+  </BrowserRouter>,
   document.getElementById('root'),
 );
 

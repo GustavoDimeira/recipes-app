@@ -19,6 +19,7 @@ export default function SearchBar() {
 
   const { filter } = foods;
   const { filter1 } = foods1;
+
   return (
     <div className="search-bar">
       <input
