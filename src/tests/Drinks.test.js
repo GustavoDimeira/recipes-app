@@ -25,6 +25,15 @@ describe("Testa tela Drinks", () => {
     const iconProfile = screen.getByTestId("profile-top-btn");
     const iconSearch = screen.getByTestId("search-top-btn");
 
+    const buttonIconFooterDrinks = screen.getByTestId("button-icon-footer-drinks");
+    const buttonIconFooterFoods = screen.getByTestId("button-icon-footer-foods");
+    expect(buttonIconFooterDrinks).toBeDefined();
+    expect(buttonIconFooterFoods).toBeDefined();
+    userEvent.click(buttonIconFooterDrinks);
+    userEvent.click(buttonIconFooterFoods);
+
+    history.push("/drinks");
+    
     expect(title).toBeDefined();
     expect(iconProfile).toBeDefined();
     expect(iconSearch).toBeDefined();

@@ -53,3 +53,22 @@ header {
   padding-top: 30vh;
 }
 
+footer {
+  background: #0fa36b;
+  bottom: 0;
+  color: #464646;
+  font-family: sans-serif;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.button-icon-footer-foods {
+  margin-left: 30vw;
+}
+
+.foto-foods {
+  height: 30vh;
+  margin-left: 10vw;
+  width: 35vw;
+}
