@@ -6,22 +6,34 @@ import Footer from '../components/Footer';
 import useApp from '../context/useApp';
 
 const magic = 12;
+const five = 5;
 export default function Drinks() {
   const [resultsDrinksCopy, setresultsDrinksCopy] = useState([]);
-  const { results } = useContext(useApp);
+  const [categoryCopy, setCategoryCopy] = useState([]);
+  const { results, category } = useContext(useApp);
   const history = useHistory();
   useEffect(() => {
     if (results.drinks) {
       setresultsDrinksCopy(results.drinks.slice(0, magic));
     }
-  }, [results]);
+    if (category.drinks) {
+      setCategoryCopy(category.drinks.slice(0, five));
+    }
+  }, [results, category]);
   return (
     <div>
-      {history.location.pathname === '/drinks' ? (
-        <Header title="Drinks" iconSearch />
-      ) : (
-        <p> Drinks </p>
-      )}
+      {history.location.pathname === '/drinks'
+        && <Header title="Drinks" iconSearch />}
+      {categoryCopy
+        && categoryCopy.map((e, index) => (
+          <button
+            key={ index }
+            type="button"
+            data-testid={ `${e.strCategory}-category-filter` }
+          >
+            {e.strCategory}
+          </button>
+        ))}
       {resultsDrinksCopy
         && resultsDrinksCopy.map((el, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ el.idDrink }>
@@ -37,7 +49,7 @@ export default function Drinks() {
             </h1>
           </div>
         ))}
-      {history.location.pathname === '/drinks' ? <Footer /> : <p> Drinks </p>}
+      {history.location.pathname === '/drinks' && <Footer /> }
     </div>
   );
 }

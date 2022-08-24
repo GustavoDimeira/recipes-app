@@ -26,6 +26,7 @@ export default function Header({ title, iconSearch }) {
         { iconSearch && (
           <button
             type="button"
+            data-testid="search-btn"
             onClick={ () => { setshowSearch(!showSearch); } }
           >
             <img
