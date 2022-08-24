@@ -12,6 +12,7 @@ function FoodsProvider({ children }) {
     },
   });
   const [filtroFoods, setfiltroFoods] = useState(false);
+  const [categoryFood, setcategoryFood] = useState([]);
   const [resultsFood, setresultsFood] = useState('');
   const contextValue = {
     foods1,
@@ -20,6 +21,7 @@ function FoodsProvider({ children }) {
     setfiltroFoods,
     resultsFood,
     setresultsFood,
+    categoryFood,
   };
   useEffect(() => {
     const fetchApi = async () => {
@@ -47,6 +49,8 @@ function FoodsProvider({ children }) {
     const fetchApi = async () => {
       const fet = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
       setresultsFood(fet);
+      const cat = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list').then((data) => data.json());
+      setcategoryFood(cat);
     };
     fetchApi();
   }, []);

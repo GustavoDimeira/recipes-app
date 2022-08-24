@@ -12,12 +12,14 @@ function DrinksProvider({ children }) {
     } });
   const [filtro, setfiltro] = useState(false);
   const [results, setresults] = useState('');
+  const [category, setcategory] = useState([]);
   const contextValue = {
     foods,
     setfoods,
     filtro,
     setfiltro,
     results,
+    category,
   };
   useEffect(() => {
     const fetchApi = async () => {
@@ -49,6 +51,8 @@ function DrinksProvider({ children }) {
     const fetchApi = async () => {
       const fet = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
       setresults(fet);
+      const cat = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((data) => data.json());
+      setcategory(cat);
     };
     fetchApi();
   }, []);
