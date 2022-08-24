@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import useFoods from './useFoods';
 
 function FoodsProvider({ children }) {
+  const history = useHistory();
   const [foods1, setfoods1] = useState({
     filter1: {
       valueIngrents: '',
       inputValue: '',
-    } });
+    },
+  });
   const [filtroFoods, setfiltroFoods] = useState(false);
   const [resultsFood, setresultsFood] = useState('');
   const contextValue = {
@@ -36,6 +39,11 @@ function FoodsProvider({ children }) {
     };
     fetchApi();
   }, [filtroFoods]);
+
+  useEffect(() => {
+    if (resultsFood?.length === 1) history.push(`/foods/${resultsFood[0].idMeal}`);
+  }, [history, resultsFood]);
+
   return <useFoods.Provider value={ contextValue }>{children}</useFoods.Provider>;
 }
 
