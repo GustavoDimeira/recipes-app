@@ -26,15 +26,15 @@ function FoodsProvider({ children }) {
       const { filter1 } = foods1;
       if (filter1.valueIngrents === 'Ingredient') {
         const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${filter1.inputValue}`).then((data) => data.json());
-        setresultsFood(fet.meals);
+        setresultsFood(fet);
       }
       if (filter1.valueIngrents === 'Name') {
         const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${filter1.inputValue}`).then((data) => data.json());
-        setresultsFood(fet.meals);
+        setresultsFood(fet);
       }
       if (filter1.valueIngrents === 'First letter' && filter1.inputValue.length === 1) {
         const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${filter1.inputValue}`).then((data) => data.json());
-        setresultsFood(fet.meals);
+        setresultsFood(fet);
       }
     };
     fetchApi();
@@ -43,6 +43,13 @@ function FoodsProvider({ children }) {
   useEffect(() => {
     if (resultsFood?.length === 1) history.push(`/foods/${resultsFood[0].idMeal}`);
   }, [history, resultsFood]);
+  useEffect(() => {
+    const fetchApi = async () => {
+      const fet = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
+      setresultsFood(fet);
+    };
+    fetchApi();
+  }, []);
 
   return <useFoods.Provider value={ contextValue }>{children}</useFoods.Provider>;
 }

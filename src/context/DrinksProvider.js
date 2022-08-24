@@ -20,22 +20,25 @@ function DrinksProvider({ children }) {
     results,
   };
   useEffect(() => {
-    const fetchApi = () => {
+    const fetchApi = async () => {
       const { filter } = foods;
       if (filter.valueIngrents === 'Ingredient') {
-        const fet = fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filter.inputValue}`).then((data) => data.json());
-        setresults(fet.drinks);
+        const fet = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filter.inputValue}`).then((data) => data.json());
+        setresults(fet);
       }
       if (filter.valueIngrents === 'Name') {
-        const fet = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter.inputValue}`).then((data) => data.json());
-        setresults(fet.drinks);
+        const fet = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter.inputValue}`).then((data) => data.json());
+        setresults(fet);
       }
       if (filter.valueIngrents === 'First letter') {
         if (filter.inputValue.length === 1) {
-          const fet = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${filter.inputValue}`).then((data) => data.json());
-          setresults(fet.drinks);
+          const fet = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${filter.inputValue}`).then((data) => data.json());
+          setresults(fet);
         } else {
           global.alert('Your search must have only 1 (one) character');
+        }
+        if (results?.length === 0) {
+          global.alert('Sorry, we haven\'t found any recipes for these filters.');
         }
       }
     };
@@ -43,11 +46,16 @@ function DrinksProvider({ children }) {
   }, [filtro]);
 
   useEffect(() => {
+    const fetchApi = async () => {
+      const fet = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
+      setresults(fet);
+    };
+    fetchApi();
+  }, []);
+
+  useEffect(() => {
     if (results?.length === 1) {
       history.push(`/drinks/${results[0].idDrink}`);
-    }
-    if (results?.length === 0) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [history, results]);
 
