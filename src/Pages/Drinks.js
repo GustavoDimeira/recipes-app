@@ -29,14 +29,19 @@ export default function Drinks() {
           <button
             key={ index }
             type="button"
-            data-testid={ `${e.strCategory}-category-filter` }
+            data-testid={`${e.strCategory}-category-filter`}
+            className="button-category"
           >
             {e.strCategory}
           </button>
         ))}
       {resultsDrinksCopy
         && resultsDrinksCopy.map((el, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ el.idDrink }>
+          <div
+            data-testid={ `${index}-recipe-card` }
+            className="card-title"
+            key={ el.idDrink }
+          >
             <img
               className="foto-foods"
               src={ el.strDrinkThumb }

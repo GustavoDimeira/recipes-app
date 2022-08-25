@@ -30,13 +30,18 @@ export default function Foods() {
             key={ index }
             type="button"
             data-testid={ `${e.strCategory}-category-filter` }
+            className="button-category"
           >
             {e.strCategory}
           </button>
         ))}
       {resultsFoodCopy
         && resultsFoodCopy.map((el, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ index }>
+          <div
+            data-testid={ `${index}-recipe-card` }
+            className="card-title"
+            key={ index }
+          >
             <img
               className="foto-foods"
               src={ el.strMealThumb }
