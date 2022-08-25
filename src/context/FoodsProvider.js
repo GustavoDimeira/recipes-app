@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import useFoods from './useFoods';
+import fetchFoodApi from '../service/fetchFoodApi';
 
 function FoodsProvider({ children }) {
   const history = useHistory();
@@ -24,26 +25,26 @@ function FoodsProvider({ children }) {
     categoryFood,
   };
   useEffect(() => {
+    // const loc = history.location.pathname.toString();
+    // if (loc.includes('/foods')) {
     const fetchApi = async () => {
-      const { filter1 } = foods1;
-      if (filter1.valueIngrents === 'Ingredient') {
-        const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${filter1.inputValue}`).then((data) => data.json());
-        setresultsFood(fet);
+      // const { filter1 } = foods1;
+      const { valueIngrents, inputValue } = foods1.filter1;
+      const request = await fetchFoodApi(valueIngrents, inputValue);
+      if (resultsFood?.length === 0) {
+        window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (filter1.valueIngrents === 'Name') {
-        const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${filter1.inputValue}`).then((data) => data.json());
-        setresultsFood(fet);
-      }
-      if (filter1.valueIngrents === 'First letter' && filter1.inputValue.length === 1) {
-        const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${filter1.inputValue}`).then((data) => data.json());
-        setresultsFood(fet);
-      }
+      setresultsFood(request);
     };
+
     fetchApi();
+    // }
   }, [filtroFoods]);
 
   useEffect(() => {
-    if (resultsFood?.length === 1) history.push(`/foods/${resultsFood[0].idMeal}`);
+    if (resultsFood?.meals
+      && resultsFood?.meals.length
+      === 1) history.push(`/foods/${resultsFood.meals[0].idMeal}`);
   }, [history, resultsFood]);
   useEffect(() => {
     const fetchApi = async () => {
@@ -66,3 +67,16 @@ FoodsProvider.propTypes = {
 };
 
 export default FoodsProvider;
+
+// if (valueIngrents === 'Ingredient') {
+//   const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`).then((data) => data.json());
+//   setresultsFood(fet);
+// }
+// if (valueIngrents === 'Name') {
+//   const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`).then((data) => data.json());
+//   setresultsFood(fet);
+// }
+// if (valueIngrents === 'First letter' && inputValue.length === 1) {
+//   const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`).then((data) => data.json());
+//   setresultsFood(fet);
+// }

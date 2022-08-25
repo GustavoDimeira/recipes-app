@@ -30,7 +30,7 @@ header {
   flex-direction: column;
   height: 40vh;
   justify-content: center;
-  width: 40vh;
+  width: 30vw;
 }
 
 .login:hover {
@@ -43,7 +43,7 @@ header {
   flex-direction: column;
   height: 40vh;
   justify-content: center;
-  width: 40vh;
+  width: 30vw;
 }
 
 .container-login {
