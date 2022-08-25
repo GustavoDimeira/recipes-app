@@ -11,7 +11,7 @@ function DrinksProvider({ children }) {
       valueIngrents: '',
       inputValue: '',
     } });
-  const [filtro, setfiltro] = useState(false);
+  const [filtro, setfiltro] = useState(true);
   const [results, setresults] = useState('');
   const [category, setcategory] = useState([]);
   const contextValue = {
@@ -20,6 +20,7 @@ function DrinksProvider({ children }) {
     filtro,
     setfiltro,
     results,
+    setresults,
     category,
   };
   useEffect(() => {
@@ -27,7 +28,7 @@ function DrinksProvider({ children }) {
       const { valueIngrents, inputValue } = foods.filter;
       const request = await fetchDrinksApi(valueIngrents, inputValue);
       if (results?.length === 0) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setresults(request);
     };

@@ -65,6 +65,9 @@ describe("Testa tela Drinks", () => {
     userEvent.click(ingredient2);
     userEvent.click(but);
 
+    userEvent.click(buttonIconFooterDrinks);
+    userEvent.click(iconSearchbutton);
+    
     expect(ingredient3).toBeDefined();
     userEvent.click(ingredient3);
     userEvent.type(inputSearch, "a");

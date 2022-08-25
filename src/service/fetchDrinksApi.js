@@ -13,7 +13,7 @@ const fetchDrinksApi = async (valueIngrents, inputValue) => {
       return fet3;
     }
     if (inputValue.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
+      window.alert('Your search must have only 1 (one) character');
     }
   }
 };
