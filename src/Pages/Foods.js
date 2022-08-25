@@ -31,6 +31,7 @@ export default function Foods() {
             key={ index }
             type="button"
             data-testid={ `${e.strCategory}-category-filter` }
+            className="button-category"
           >
             {e.strCategory}
           </button>
