@@ -47,10 +47,15 @@ header {
 }
 
 .container-login {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-top: 30vh;
+  border: 50px;
+  margin-left: 85vh;
+  margin-top: 35vh;
+}
+
+.foto-foods {
+  height: 30vh;
+  margin-left: 10vw;
+  width: 35vw;
 }
 
 footer {
@@ -65,10 +70,4 @@ footer {
 
 .button-icon-footer-foods {
   margin-left: 30vw;
-}
-
-.foto-foods {
-  height: 30vh;
-  margin-left: 10vw;
-  width: 35vw;
 }
