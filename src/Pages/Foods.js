@@ -13,7 +13,7 @@ export default function Foods() {
   const [categoryFoodCopy, setCategoryFoodCopy] = useState([]);
   const { resultsFood, categoryFood } = useContext(useFoods);
   useEffect(() => {
-    if (resultsFood.meals) {
+    if (resultsFood?.meals) {
       setresultsFoodCopy(resultsFood.meals.slice(0, magic));
     }
     if (categoryFood.meals) {

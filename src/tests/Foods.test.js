@@ -11,13 +11,13 @@ describe("Testa tela Foods", () => {
   it("Deve renderizar a tela e seus componetes corretamente", () => {
     const history = createMemoryHistory();
     render(
-      <FoodsProvider.Proviver>
-        <DrinksProvider.Provider>
-          <Router history={history}>
+      <Router history={history}>
+        <FoodsProvider>
+          <DrinksProvider>
             <App />
-          </Router>
-        </DrinksProvider.Provider>
-      </FoodsProvider.Proviver>
+          </DrinksProvider>
+        </FoodsProvider>
+      </Router>
     );
     history.push("/foods");
     const title = screen.getByTestId("page-title");

@@ -4,9 +4,9 @@ import './App.css';
 import Login from './Pages/Login';
 import Foods from './Pages/Foods';
 import Drinks from './Pages/Drinks';
-import profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
+import Profile from './Pages/Profile';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
       <Route exact path="/drinks/:id/in-progress" component={ Drinks } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-      <Route exact path="/profile" component={ profile } />
+      <Route exact path="/profile" component={ Profile } />
     </Switch>
   );
 }

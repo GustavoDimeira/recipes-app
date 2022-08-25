@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import useApp from '../context/useApp';
 import useFoods from '../context/useFoods';
 
-export default function SearchBar() {
+export default function SearchBar({ title }) {
   const {
     foods,
     setfoods,
@@ -16,7 +17,6 @@ export default function SearchBar() {
     foods1,
     setfoods1,
   } = useContext(useFoods);
-
   const { filter } = foods;
   const { filter1 } = foods1;
 
@@ -79,8 +79,13 @@ export default function SearchBar() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => {
-          setfiltro(!filtro);
-          setfiltroFoods(!filtroFoods);
+          if (title === 'Foods') {
+            setfiltroFoods(!filtroFoods);
+          }
+          console.log(title);
+          if (title === 'Drinks') {
+            setfiltro(!filtro);
+          }
         } }
       >
         Buscar
@@ -88,3 +93,7 @@ export default function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string,
+}.isRequired;
