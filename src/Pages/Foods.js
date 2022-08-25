@@ -20,6 +20,7 @@ export default function Foods() {
       setCategoryFoodCopy(categoryFood.meals.slice(0, five));
     }
   }, [resultsFood, categoryFood]);
+  console.log(resultsFoodCopy);
   return (
     <div>
       {history.location.pathname === '/foods'
@@ -37,16 +38,21 @@ export default function Foods() {
       {resultsFoodCopy
         && resultsFoodCopy.map((el, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ index }>
-            <img
-              className="foto-foods"
-              src={ el.strMealThumb }
-              alt="FoodsIcon"
-              data-testid={ `${index}-card-img` }
-            />
-            <h1 data-testid={ `${index}-card-name` }>
-              {' '}
-              {el.strMeal}
-            </h1>
+            <button
+              type="button"
+              onClick={ () => { history.push(`/foods/${el.idMeal}`); } }
+            >
+              <img
+                className="foto-foods"
+                src={ el.strMealThumb }
+                alt="FoodsIcon"
+                data-testid={ `${index}-card-img` }
+              />
+              <h1 data-testid={ `${index}-card-name` }>
+                {' '}
+                {el.strMeal}
+              </h1>
+            </button>
           </div>
         ))}
       {history.location.pathname === '/foods' && <Footer /> }

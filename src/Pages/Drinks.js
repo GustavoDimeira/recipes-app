@@ -37,16 +37,21 @@ export default function Drinks() {
       {resultsDrinksCopy
         && resultsDrinksCopy.map((el, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ el.idDrink }>
-            <img
-              className="foto-foods"
-              src={ el.strDrinkThumb }
-              alt="FoodsIcon"
-              data-testid={ `${index}-card-img` }
-            />
-            <h1 data-testid={ `${index}-card-name` }>
-              {' '}
-              {el.strDrink}
-            </h1>
+            <button
+              type="button"
+              onClick={ () => { history.push(`/drinks/${el.idDrink}`); } }
+            >
+              <img
+                className="foto-foods"
+                src={ el.strDrinkThumb }
+                alt="FoodsIcon"
+                data-testid={ `${index}-card-img` }
+              />
+              <h1 data-testid={ `${index}-card-name` }>
+                {' '}
+                {el.strDrink}
+              </h1>
+            </button>
           </div>
         ))}
       {history.location.pathname === '/drinks' && <Footer /> }
