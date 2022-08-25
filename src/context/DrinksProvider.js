@@ -26,7 +26,7 @@ function DrinksProvider({ children }) {
     const fetchApi = async () => {
       const { valueIngrents, inputValue } = foods.filter;
       const request = await fetchDrinksApi(valueIngrents, inputValue);
-      if (filtro && request?.length === 0) {
+      if (results?.length === 0) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setresults(request);
@@ -49,10 +49,7 @@ function DrinksProvider({ children }) {
     if (results?.drinks && results?.drinks.length === 1) {
       history.push(`/drinks/${results.drinks[0].idDrink}`);
     }
-    if (results?.length === 0) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
-  }, [history, results]);
+  }, [history, results, filtro]);
 
   return <useApp.Provider value={ contextValue }>{children}</useApp.Provider>;
 }

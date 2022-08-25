@@ -12,7 +12,9 @@ const fetchDrinksApi = async (valueIngrents, inputValue) => {
       const fet3 = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`).then((data) => data.json());
       return fet3;
     }
-    global.alert('Your search must have only 1 (one) character');
+    if (inputValue.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+    }
   }
 };
 
