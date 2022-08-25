@@ -25,22 +25,19 @@ function DrinksProvider({ children }) {
   useEffect(() => {
     const fetchApi = async () => {
       const { valueIngrents, inputValue } = foods.filter;
-      const request = await fetchDrinksApi(valueIngrents, inputValue, results);
-      console.log(request?.length === 0);
-      console.log(request);
+      const request = await fetchDrinksApi(valueIngrents, inputValue);
       if (filtro && request?.length === 0) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setresults(request);
     };
     fetchApi();
-    // }
   }, [filtro]);
 
   useEffect(() => {
     const fetchApi = async () => {
       const fet = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
-   
+
       setresults(fet);
       const cat = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((data) => data.json());
       setcategory(cat);

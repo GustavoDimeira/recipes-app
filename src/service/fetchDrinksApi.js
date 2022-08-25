@@ -14,9 +14,6 @@ const fetchDrinksApi = async (valueIngrents, inputValue) => {
     }
     global.alert('Your search must have only 1 (one) character');
   }
-  // if (results?.length === 0) {
-  //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
-  // }
 };
 
 export default fetchDrinksApi;
