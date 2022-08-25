@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import useApp from '../context/useApp';
 import useFoods from '../context/useFoods';
 
 export default function SearchBar() {
+  const history = useHistory();
   const {
     foods,
     setfoods,
@@ -79,8 +81,13 @@ export default function SearchBar() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => {
-          setfiltro(!filtro);
-          setfiltroFoods(!filtroFoods);
+          const loc = history.location.pathname.toString();
+          if (loc.includes('/foods')) {
+            setfiltroFoods(!filtroFoods);
+          }
+          if (loc.includes('/drinks')) {
+            setfiltro(!filtro);
+          }
         } }
       >
         Buscar

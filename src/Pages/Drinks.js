@@ -13,7 +13,7 @@ export default function Drinks() {
   const { results, category } = useContext(useApp);
   const history = useHistory();
   useEffect(() => {
-    if (results.drinks) {
+    if (results?.drinks) {
       setresultsDrinksCopy(results.drinks.slice(0, magic));
     }
     if (category.drinks) {
