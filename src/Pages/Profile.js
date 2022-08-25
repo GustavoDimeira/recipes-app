@@ -5,11 +5,14 @@ export default function Profile() {
   const history = useHistory();
   const email = localStorage.getItem('user');
   const emailParse = JSON.parse(email);
-  // console.log('email', email);
-  // console.log('email Parse', emailParse);
+  console.log('email', email);
+  console.log('email Parse', emailParse);
+
   return (
     <div>
-      <h2 data-testid="profile-email">{emailParse.email}</h2>
+      <h2 data-testid="profile-email">
+        {emailParse?.email}
+      </h2>
       <button
         data-testid="profile-done-btn"
         type="button"
