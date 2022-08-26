@@ -93,3 +93,10 @@ footer {
 .card-recipes {
   padding: 2vw;
 }
+
+.button-Recipes {
+  background-color: hsl(157, 83%, 35%);
+  color: #464646;
+  font-family: sans-serif;
+  padding: 30px;
+}

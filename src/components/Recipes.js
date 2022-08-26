@@ -31,6 +31,7 @@ export default function Recipes() {
             <button
               type="button"
               onClick={ () => { history.push(`/drinks/${el.idDrink}`); } }
+              className="button-Recipes"
             >
               <img
                 className="foto-foods"
@@ -55,6 +56,7 @@ export default function Recipes() {
             <button
               type="button"
               onClick={ () => { history.push(`/foods/${el.idMeal}`); } }
+              className="button-Recipes"
             >
               <img
                 className="foto-foods"
