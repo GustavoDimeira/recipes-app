@@ -27,11 +27,10 @@ function FoodsProvider({ children }) {
   };
   useEffect(() => {
     const fetchApi = async () => {
-      const { valueIngrents, inputValue } = foods1.filter1;
+      const { valueIngrents, inputValue } = foods1?.filter1;
       const request = await fetchFoodApi(valueIngrents, inputValue);
-      console.log(request?.length);
-      if (request?.meals.length === 1) {
-        history.push(`/foods/${resultsFood.meals[0].idMeal}`);
+      if (request?.meals?.length === 1) {
+        history.push(`/foods/${request.meals[0].idMeal}`);
       }
       if (request?.meals === null) {
         window.alert('Sorry, we haven\'t found any recipes for these filters.');
