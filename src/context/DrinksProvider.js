@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import useApp from './useApp';
 import fetchDrinksApi from '../service/fetchDrinksApi';
+import initialDrinks from '../service/initialDrinks';
 
 function DrinksProvider({ children }) {
   const history = useHistory();
+  // Estados iniciais;
   const [foods, setfoods] = useState({
     filter: {
       valueIngrents: '',
@@ -27,7 +29,9 @@ function DrinksProvider({ children }) {
     const fetchApi = async () => {
       const { valueIngrents, inputValue } = foods.filter;
       const request = await fetchDrinksApi(valueIngrents, inputValue);
-      console.log(request);
+      if (request?.drinks === 1) {
+        history.push(`/drinks/${results.drinks[0].idDrink}`);
+      }
       if (request?.drinks === null) {
         window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
@@ -35,23 +39,24 @@ function DrinksProvider({ children }) {
     };
     fetchApi();
   }, [filtro]);
-
+  // Requisição dos cards de foods iniciais;
   useEffect(() => {
     const fetchApi = async () => {
-      const fet = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
+      // const fet = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
 
-      setresults(fet);
+      // requisição para lista de categorias;
+      setresults(await initialDrinks());
       const cat = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((data) => data.json());
       setcategory(cat);
     };
     fetchApi();
   }, []);
-
-  useEffect(() => {
-    if (results?.drinks && results?.drinks.length === 1) {
-      history.push(`/drinks/${results.drinks[0].idDrink}`);
-    }
-  }, [history, results, filtro]);
+  // Se vier apenas um resultado a pagina e redirecionada para a pagina de detalhes da receita;
+  // useEffect(() => {
+  //   if (results?.drinks && results?.drinks.length === 1) {
+  //     history.push(`/drinks/${results.drinks[0].idDrink}`);
+  //   }
+  // }, [history, results, filtro]);
 
   return <useApp.Provider value={ contextValue }>{children}</useApp.Provider>;
 }

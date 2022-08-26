@@ -3,6 +3,7 @@ const fetchFoodApi = async (valueIngrents, inputValue) => {
     const fet1 = await fetch(
       `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`,
     ).then((data) => data.json());
+    // if (fet1.length === 1) history.push(`/foods/${resultsFood.meals[0].idMeal}`);
     return fet1;
   }
   if (valueIngrents === 'Name') {
