@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function RecipeDetails({ match }) {
   const [resultApi, setresultApi] = useState([]);
-  console.log('resultado da api', resultApi);
+  console.log('resultado da api:', resultApi);
 
   useEffect(() => {
     if (match.path === '/foods/:id') {
