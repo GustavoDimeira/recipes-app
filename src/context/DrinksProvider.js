@@ -27,7 +27,8 @@ function DrinksProvider({ children }) {
     const fetchApi = async () => {
       const { valueIngrents, inputValue } = foods.filter;
       const request = await fetchDrinksApi(valueIngrents, inputValue);
-      if (results?.length === 0) {
+      console.log(request);
+      if (request?.drinks === null) {
         window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setresults(request);

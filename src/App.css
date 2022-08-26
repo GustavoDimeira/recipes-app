@@ -27,9 +27,9 @@ header {
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  height: 35vh;
+  height: 40vh;
   justify-content: center;
-  width: 20vw;
+  width: 25vw;
 }
 
 .login:hover {
@@ -40,14 +40,14 @@ header {
   box-shadow: 1px 3px 8px rgb(194, 187, 187);
   display: flex;
   flex-direction: column;
-  height: 35vh;
+  height: 40vh;
   justify-content: center;
   width: 25vw;
 }
 
 .container-login {
   border: 50px;
-  margin-left: 85vh;
+  margin-left: 80vh;
   margin-top: 35vh;
 }
 
@@ -74,8 +74,22 @@ footer {
   text-align: center;
 }
 
-.button-category {
-  height: 25px;
+.recipes {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2vw;
+}
+
+.Category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2vw;
   text-align: center;
-  width: 20vw;
+}
+
+.card-recipes {
+  padding: 2vw;
 }

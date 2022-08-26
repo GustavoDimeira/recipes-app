@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function RecipeDetails({ match }) {
-  const [resultApi, setresultApi] = useState({});
+  const [resultApi, setresultApi] = useState([]);
   console.log(resultApi);
 
   useEffect(() => {
@@ -19,5 +20,14 @@ export default function RecipeDetails({ match }) {
       };
       fetchIdDetailsDrinks();
     }
-  });
+  }, []);
+  return (
+    <div />
+  );
 }
+
+RecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.string,
+  }),
+}.isRequired;
