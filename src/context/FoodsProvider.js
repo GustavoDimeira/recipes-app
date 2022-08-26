@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import useFoods from './useFoods';
 import fetchFoodApi from '../service/fetchFoodApi';
+import initialFoods from '../service/initialFoods';
 
 function FoodsProvider({ children }) {
   const history = useHistory();
@@ -25,12 +26,13 @@ function FoodsProvider({ children }) {
     categoryFood,
   };
   useEffect(() => {
-    // const loc = history.location.pathname.toString();
-    // if (loc.includes('/foods')) {
     const fetchApi = async () => {
-      // const { filter1 } = foods1;
       const { valueIngrents, inputValue } = foods1.filter1;
       const request = await fetchFoodApi(valueIngrents, inputValue);
+      console.log(request?.length);
+      if (request?.meals.length === 1) {
+        history.push(`/foods/${resultsFood.meals[0].idMeal}`);
+      }
       if (request?.meals === null) {
         window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
@@ -42,16 +44,10 @@ function FoodsProvider({ children }) {
   }, [filtroFoods]);
 
   useEffect(() => {
-    if (resultsFood?.meals
-      && resultsFood?.meals.length
-      === 1) history.push(`/foods/${resultsFood.meals[0].idMeal}`);
-  }, [history, resultsFood]);
-  useEffect(() => {
     const fetchApi = async () => {
-      const fet = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((data) => data.json());
-      setresultsFood(fet);
-      const cat = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list').then((data) => data.json());
-      setcategoryFood(cat);
+      setresultsFood(await initialFoods());
+      const category = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list').then((data) => data.json());
+      setcategoryFood(category);
     };
     fetchApi();
   }, []);
@@ -67,16 +63,3 @@ FoodsProvider.propTypes = {
 };
 
 export default FoodsProvider;
-
-// if (valueIngrents === 'Ingredient') {
-//   const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`).then((data) => data.json());
-//   setresultsFood(fet);
-// }
-// if (valueIngrents === 'Name') {
-//   const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`).then((data) => data.json());
-//   setresultsFood(fet);
-// }
-// if (valueIngrents === 'First letter' && inputValue.length === 1) {
-//   const fet = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`).then((data) => data.json());
-//   setresultsFood(fet);
-// }
