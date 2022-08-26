@@ -29,7 +29,7 @@ export default function Drinks() {
           <button
             key={ index }
             type="button"
-            data-testid={`${e.strCategory}-category-filter`}
+            data-testid={ `${e.strCategory}-category-filter` }
             className="button-category"
           >
             {e.strCategory}
