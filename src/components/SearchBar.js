@@ -82,7 +82,6 @@ export default function SearchBar({ title }) {
           if (title === 'Foods') {
             setfiltroFoods(!filtroFoods);
           }
-          console.log(title);
           if (title === 'Drinks') {
             setfiltro(!filtro);
           }

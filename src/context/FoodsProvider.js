@@ -31,7 +31,7 @@ function FoodsProvider({ children }) {
       // const { filter1 } = foods1;
       const { valueIngrents, inputValue } = foods1.filter1;
       const request = await fetchFoodApi(valueIngrents, inputValue);
-      if (resultsFood?.length === 0) {
+      if (request?.meals === null) {
         window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setresultsFood(request);
