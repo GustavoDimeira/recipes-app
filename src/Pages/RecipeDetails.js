@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function RecipeDetails({ match }) {
   const [dataApi, setDataApi] = useState([]);
-  // const [filterIngredient, setfilterIngredient] = useState([]);
-  // const [filterMeasure, setfilterMeasure] = useState([]);
+  console.log('resultado da api:', resultApi);
 
   useEffect(() => {
     if (match.path === '/foods/:id') {
@@ -21,7 +21,6 @@ export default function RecipeDetails({ match }) {
       fetchIdDetailsDrinks();
     }
   }, []);
-
   return (
     <div>
       { dataApi.map((element, index) => (
@@ -44,3 +43,9 @@ export default function RecipeDetails({ match }) {
     </div>
   );
 }
+
+RecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.string,
+  }),
+}.isRequired;

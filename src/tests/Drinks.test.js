@@ -83,7 +83,7 @@ describe("Testa tela Drinks", () => {
       location: { pathname },
     } = history;
     expect(pathname).toBe("/profile");
-    history.push("/drinks/cervejinha");
+    history.push("/drinks/15997");
   });
   it("Deve renderizar a tela e seus componetes corretamente1", () => {
     const history = createMemoryHistory();
@@ -160,7 +160,7 @@ describe("Testa tela Drinks", () => {
       location: { pathname },
     } = history;
     expect(pathname).toBe("/profile");
-    history.push("/drinks/cervejinha");
+    history.push("/foods/52977");
   });
 });
 
