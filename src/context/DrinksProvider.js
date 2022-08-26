@@ -29,7 +29,7 @@ function DrinksProvider({ children }) {
     const fetchApi = async () => {
       const { valueIngrents, inputValue } = foods.filter;
       const request = await fetchDrinksApi(valueIngrents, inputValue);
-      if (request?.drinks.length === 1) {
+      if (request?.drinks?.length === 1) {
         history.push(`/drinks/${request.drinks[0].idDrink}`);
       }
       if (request?.drinks === null) {
