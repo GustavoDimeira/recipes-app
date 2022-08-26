@@ -12,7 +12,7 @@ function DrinksProvider({ children }) {
       valueIngrents: '',
       inputValue: '',
     } });
-  const [filtro, setfiltro] = useState(false);
+  const [filtro, setfiltro] = useState(true);
   const [results, setresults] = useState('');
   const [category, setcategory] = useState([]);
   const contextValue = {
@@ -21,20 +21,20 @@ function DrinksProvider({ children }) {
     filtro,
     setfiltro,
     results,
+    setresults,
     category,
   };
-  // userEffect e chamado ao alterar o estado "filtro", ele faz a requisição para API com os filtros aplicados, pela sideBar e salva o resultado no estado que renderiza os resultados;
   useEffect(() => {
     const fetchApi = async () => {
       const { valueIngrents, inputValue } = foods.filter;
-      const request = await fetchDrinksApi(valueIngrents, inputValue, results);
-      if (filtro && request?.length === 0) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      const request = await fetchDrinksApi(valueIngrents, inputValue);
+      console.log(request);
+      if (request?.drinks === null) {
+        window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
       setresults(request);
     };
     fetchApi();
-    // }
   }, [filtro]);
   // Requisição dos cards de foods iniciais;
   useEffect(() => {
@@ -52,11 +52,7 @@ function DrinksProvider({ children }) {
     if (results?.drinks && results?.drinks.length === 1) {
       history.push(`/drinks/${results.drinks[0].idDrink}`);
     }
-    // Um alert e exido ao não retornar resultado;
-    if (results?.length === 0) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
-  }, [history, results]);
+  }, [history, results, filtro]);
 
   return <useApp.Provider value={ contextValue }>{children}</useApp.Provider>;
 }
@@ -69,3 +65,24 @@ DrinksProvider.propTypes = {
 };
 
 export default DrinksProvider;
+
+// if (valueIngrents === 'Ingredient') {
+//   const fet = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`).then((data) => data.json());
+//   setresults(fet);
+// }
+// if (valueIngrents === 'Name') {
+//   const fet = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`).then((data) => data.json());
+//   setresults(fet);
+//   console.log(results);
+// }
+// if (valueIngrents === 'First letter') {
+//   if (inputValue.length === 1) {
+//     const fet = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`).then((data) => data.json());
+//     setresults(fet);
+//   } else {
+//     global.alert('Your search must have only 1 (one) character');
+//   }
+//   if (results?.length === 0) {
+//     global.alert('Sorry, we haven\'t found any recipes for these filters.');
+//   }
+// }

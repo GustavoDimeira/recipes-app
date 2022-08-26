@@ -13,7 +13,6 @@ header {
   display: flex;
   justify-content: space-around;
   width: 100%;
-
 }
 
 .search-bar {
@@ -30,7 +29,7 @@ header {
   flex-direction: column;
   height: 40vh;
   justify-content: center;
-  width: 40vh;
+  width: 25vw;
 }
 
 .login:hover {
@@ -43,14 +42,18 @@ header {
   flex-direction: column;
   height: 40vh;
   justify-content: center;
-  width: 40vh;
+  width: 25vw;
 }
 
 .container-login {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-top: 30vh;
+  border: 50px;
+  margin-left: 80vh;
+  margin-top: 35vh;
+}
+
+.foto-foods {
+  height: 20vh;
+  width: 25vw;
 }
 
 footer {
@@ -67,8 +70,33 @@ footer {
   margin-left: 30vw;
 }
 
-.foto-foods {
-  height: 30vh;
-  margin-left: 10vw;
-  width: 35vw;
+.card-title {
+  text-align: center;
+}
+
+.recipes {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2vw;
+}
+
+.Category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2vw;
+  text-align: center;
+}
+
+.card-recipes {
+  padding: 2vw;
+}
+
+.button-Recipes {
+  background-color: hsl(157, 83%, 35%);
+  color: #464646;
+  font-family: sans-serif;
+  padding: 5vw;
 }

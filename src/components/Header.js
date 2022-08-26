@@ -36,7 +36,7 @@ export default function Header({ title, iconSearch }) {
             />
           </button>)}
       </div>
-      {showSearch && <SearchBar />}
+      {showSearch && <SearchBar title={ title } />}
     </header>
   );
 }
