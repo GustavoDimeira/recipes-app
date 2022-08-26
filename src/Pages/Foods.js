@@ -20,7 +20,6 @@ export default function Foods() {
       setCategoryFoodCopy(categoryFood.meals.slice(0, five));
     }
   }, [resultsFood, categoryFood]);
-  console.log(resultsFoodCopy);
   return (
     <div>
       {history.location.pathname === '/foods'
