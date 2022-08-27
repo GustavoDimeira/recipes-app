@@ -20,7 +20,10 @@ export default function Recipes() {
     }
   }, [results, resultsFood]);
   return (
-    <div className="recipes">
+    <div
+      className="recipes"
+      data-testid="cardsContainer"
+    >
       {history.location.pathname === '/drinks'
         && resultsDrinksCopy.map((el, index) => (
           <div
