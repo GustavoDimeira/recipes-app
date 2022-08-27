@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import initialFoods from '../service/initialFoods';
+import initialDrinks from '../service/initialDrinks';
 
 export default function RecipeDetails({ match }) {
   const [dataApi, setDataApi] = useState([]);
@@ -20,8 +20,8 @@ export default function RecipeDetails({ match }) {
           .filter((e) => e.includes('Ingredient'));
         setCloneIngredients(keysIngredients.filter((filtered) => filtered !== ''));
 
-        const getRecomendation = await initialFoods();
-        setRecomendation(getRecomendation.meals.slice(+'0', +'6'));
+        const getRecomendation = await initialDrinks();
+        setRecomendation(getRecomendation.drinks.slice(+'0', +'6'));
       };
       fetchIdDetailsFoods();
     }
@@ -75,16 +75,16 @@ export default function RecipeDetails({ match }) {
                 className="card-recommended"
                 type="button"
                 key={ idx }
-                onClick={ () => { history.push(`/foods/${rec.idMeal}`); } }
+                onClick={ () => { history.push(`/drinks/${rec.idDrink}`); } }
               >
                 <img
                   className="foto-foods"
                   data-testid={ `${idx}-recomendation-card` }
-                  src={ rec.strMealThumb }
-                  alt={ rec.strMealThumb }
+                  src={ rec.strDrinkThumb }
+                  alt={ rec.strDrinkThumb }
                 />
-                <h4 data-testid="recipe-title">
-                  { rec.strMeal }
+                <h4 data-testid={ `${idx}-recomendation-title` }>
+                  { rec.strDrink }
                 </h4>
                 <h4 data-testid="recipe-category">
                   { rec.strCategory }
