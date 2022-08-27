@@ -14,7 +14,7 @@ export default function Category() {
   const { category, setresults } = useContext(useApp);
   const [categoryFoodCopy, setCategoryFoodCopy] = useState([]);
   const { categoryFood, setresultsFood } = useContext(useFoods);
-  const [toggleFilter, setToggleFilter] = useState(true);
+  const [toggleFilter, setToggleFilter] = useState({});
   const history = useHistory();
 
   useEffect(() => {
@@ -36,14 +36,14 @@ export default function Category() {
             data-testid={ `${e.strCategory}-category-filter` }
             className="button-category"
             onClick={ async () => {
-              switch (toggleFilter) {
+              switch (toggleFilter[e.strCategory]) {
               case false:
-                setToggleFilter(true);
-                setresults(await initialFoods());
+                setresults(await initialDrinks());
+                setToggleFilter({ ...toggleFilter, [e.strCategory]: true });
                 break;
               default:
-                setToggleFilter(false);
                 setresults(await drinksForCategory(e.strCategory));
+                setToggleFilter({ ...toggleFilter, [e.strCategory]: false });
                 break;
               }
             } }
@@ -78,14 +78,14 @@ export default function Category() {
             data-testid={ `${el.strCategory}-category-filter` }
             className="button-category"
             onClick={ async () => {
-              switch (toggleFilter) {
+              switch (toggleFilter[el.strCategory]) {
               case false:
-                setToggleFilter(true);
                 setresultsFood(await initialFoods());
+                setToggleFilter({ ...toggleFilter, [el.strCategory]: true });
                 break;
               default:
                 setresultsFood(await foodsForCategory(el.strCategory));
-                setToggleFilter(false);
+                setToggleFilter({ ...toggleFilter, [el.strCategory]: false });
                 break;
               }
             } }
