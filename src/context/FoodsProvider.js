@@ -35,6 +35,7 @@ function FoodsProvider({ children }) {
       if (request?.meals === null) {
         window.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
+      console.log(request);
       setresultsFood(request);
     };
 
