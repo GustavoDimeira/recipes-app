@@ -8,6 +8,7 @@ import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import RecipeDetails from './Pages/RecipeDetails';
+import DrinksDetails from './Pages/DrinksDetails';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
         exact
         path="/drinks/:id"
         render={
-          (props) => <RecipeDetails { ...props } />
+          (props) => <DrinksDetails { ...props } />
         }
       />
       <Route exact path="/drinks/:id/in-progress" component={ Drinks } />

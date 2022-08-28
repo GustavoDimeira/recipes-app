@@ -18,7 +18,8 @@ export default function Recipes() {
     if (resultsFood?.meals) {
       setresultsFoodCopy(resultsFood.meals.slice(0, magic));
     }
-  }, [results, resultsFood]);
+  }, []);
+
   return (
     <div
       className="recipes"

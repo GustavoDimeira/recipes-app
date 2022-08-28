@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import initialDrinks from '../service/initialDrinks';
+import initialFoods from '../service/initialFoods';
 
-export default function RecipeDetails({ match }) {
+export default function DrinksDetails({ match }) {
   const [dataApi, setDataApi] = useState([]);
   const [cloneIngredients, setCloneIngredients] = useState([]);
-  const [recomendationDrinks, setRecomendationDrinks] = useState([]);
+  const [recomendationFoods, setRecomendationFoods] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    if (match.path === '/foods/:id') {
-      const fetchIdDetailsFoods = async () => {
-        const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`).then((data) => data.json());
-        setDataApi(result.meals);
+    if (match.path === '/drinks/:id') {
+      const fetchIdDetailsDrinks = async () => {
+        const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`).then((data) => data.json());
+        setDataApi(result.drinks);
 
-        const keysIngredients = Object.keys(result.meals[0])
+        const keysIngredients = Object.keys(result.drinks[0])
           .filter((filtered) => filtered.includes('Ingredient'));
         setCloneIngredients(keysIngredients.filter((filtered) => filtered !== ''));
 
-        const getRecomendationDrinks = await initialDrinks();
-        setRecomendationDrinks(getRecomendationDrinks.drinks.slice(+'0', +'6'));
+        const getRecomendationFoods = await initialFoods();
+        setRecomendationFoods(getRecomendationFoods.meals.slice(+'0', +'6'));
       };
-      fetchIdDetailsFoods();
+      fetchIdDetailsDrinks();
     }
   }, []);
 
@@ -33,14 +33,15 @@ export default function RecipeDetails({ match }) {
           <img
             className="foto-foods"
             data-testid="recipe-photo"
-            src={ element.strMealThumb }
-            alt={ element.strMealThumb }
+            src={ element.strDrinkThumb }
+            alt={ element.strDrinkThumb }
           />
           <h1 data-testid="recipe-title">
-            { element.strMeal }
+            { element.strDrink }
           </h1>
           <h4 data-testid="recipe-category">
             { element.strCategory }
+            { element.strAlcoholic }
           </h4>
           <h2>Ingredients</h2>
           <div>
@@ -55,32 +56,32 @@ export default function RecipeDetails({ match }) {
           </div>
           <h2>Instructions</h2>
           <p data-testid="instructions">{ element.strInstructions }</p>
-          <iframe
-            src={ `https://www.youtube.com/embed/${element.strYoutube.split('=')[1]}` }
-            title={ `{${element.strMeal}}` }
+          { element?.strVideo === null ? <div /> : <iframe
+            src={ `https://www.youtube.com/embed/${element.strVideo.split('=')[1]}` }
+            title={ `{${element.strDrink}}` }
             data-testid="video"
-          />
+          />}
+          {/*  */}
           <h2>Recommended</h2>
           <div className="recomendation-foods">
-            { recomendationDrinks.map((rec, idx) => (
+            { recomendationFoods.map((rec, idx) => (
               <button
                 className="card-recommended"
                 type="button"
                 key={ idx }
-                onClick={ () => { history.push(`/drinks/${rec.idDrink}`); } }
+                onClick={ () => { history.push(`/foods/${rec.idMeal}`); } }
               >
                 <img
                   className="foto-foods"
                   data-testid={ `${idx}-recomendation-card` }
-                  src={ rec.strDrinkThumb }
-                  alt={ rec.strDrinkThumb }
+                  src={ rec.strMealThumb }
+                  alt={ rec.strMealThumb }
                 />
                 <h4 data-testid={ `${idx}-recomendation-title` }>
-                  { rec.strDrink }
+                  { rec.strMeal }
                 </h4>
                 <h4 data-testid="recipe-category">
                   { rec.strCategory }
-                  { rec.strAlcoholic }
                 </h4>
               </button>
             ))}
@@ -89,8 +90,7 @@ export default function RecipeDetails({ match }) {
     </div>
   );
 }
-
-RecipeDetails.propTypes = {
+DrinksDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.string,
   }),

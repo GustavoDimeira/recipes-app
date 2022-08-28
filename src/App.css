@@ -100,3 +100,20 @@ footer {
   font-family: sans-serif;
   padding: 5vw;
 }
+
+.recomendation-foods {
+  align-content: stretch;
+  display: flex;
+
+  /* justify-content: space-evenly; */
+  overflow-x: scroll;
+}
+
+.card-recommended {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 3;
+  width: 50%;
+}
