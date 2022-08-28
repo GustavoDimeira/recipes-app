@@ -6,9 +6,8 @@ import initialDrinks from '../service/initialDrinks';
 export default function RecipeDetails({ match }) {
   const [dataApi, setDataApi] = useState([]);
   const [cloneIngredients, setCloneIngredients] = useState([]);
-  const [recomendation, setRecomendation] = useState([]);
+  const [recomendationDrinks, setRecomendationDrinks] = useState([]);
   const history = useHistory();
-  // console.log('resultado da api:', data);
 
   useEffect(() => {
     if (match.path === '/foods/:id') {
@@ -17,23 +16,16 @@ export default function RecipeDetails({ match }) {
         setDataApi(result.meals);
 
         const keysIngredients = Object.keys(result.meals[0])
-          .filter((e) => e.includes('Ingredient'));
+          .filter((filtered) => filtered.includes('Ingredient'));
         setCloneIngredients(keysIngredients.filter((filtered) => filtered !== ''));
 
-        const getRecomendation = await initialDrinks();
-        setRecomendation(getRecomendation.drinks.slice(+'0', +'6'));
+        const getRecomendationDrinks = await initialDrinks();
+        setRecomendationDrinks(getRecomendationDrinks.drinks.slice(+'0', +'6'));
       };
       fetchIdDetailsFoods();
     }
-    if (match.path === '/drinks/:id') {
-      const fetchIdDetailsDrinks = async () => {
-        const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`).then((data) => data.json());
-        setDataApi(result.meals);
-      };
-      fetchIdDetailsDrinks();
-    }
   }, []);
-  // console.log('entries:', obj);
+
   return (
     <div>
       { dataApi.map((element, index) => (
@@ -70,7 +62,7 @@ export default function RecipeDetails({ match }) {
           />
           <h2>Recommended</h2>
           <div className="recomendation-foods">
-            { recomendation.map((rec, idx) => (
+            { recomendationDrinks.map((rec, idx) => (
               <button
                 className="card-recommended"
                 type="button"
@@ -88,6 +80,7 @@ export default function RecipeDetails({ match }) {
                 </h4>
                 <h4 data-testid="recipe-category">
                   { rec.strCategory }
+                  { rec.strAlcoholic }
                 </h4>
               </button>
             ))}

@@ -28,7 +28,7 @@ function App() {
         exact
         path="/drinks/:id"
         render={
-          (props) => <RecipeDetails { ...props } />
+          (props) => <DrinksDetails { ...props } />
         }
       />
       <Route exact path="/drinks/:id/in-progress" component={ Drinks } />
