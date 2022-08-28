@@ -6,10 +6,10 @@ import useFoods from '../context/useFoods';
 
 const magic = 12;
 export default function Recipes() {
-  const [resultsDrinksCopy, setresultsDrinksCopy] = useState([]);
   const { results } = useContext(useApp);
-  const [resultsFoodCopy, setresultsFoodCopy] = useState([]);
+  const [resultsDrinksCopy, setresultsDrinksCopy] = useState([]);
   const { resultsFood } = useContext(useFoods);
+  const [resultsFoodCopy, setresultsFoodCopy] = useState([]);
   const history = useHistory();
   useEffect(() => {
     if (results?.drinks) {
@@ -18,7 +18,8 @@ export default function Recipes() {
     if (resultsFood?.meals) {
       setresultsFoodCopy(resultsFood.meals.slice(0, magic));
     }
-  }, []);
+    // console.log(resultsFoodCopy);
+  }, [resultsFood, results]);
 
   return (
     <div
