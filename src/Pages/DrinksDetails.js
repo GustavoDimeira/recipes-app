@@ -10,7 +10,6 @@ export default function DrinksDetails({ match }) {
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [recomendationFoods, setRecomendationFoods] = useState([]);
   const history = useHistory();
-  const copy = require('clipboard-copy');
 
   useEffect(() => {
     if (match.path === '/drinks/:id') {
@@ -63,7 +62,7 @@ export default function DrinksDetails({ match }) {
             value="share"
             onClick={ () => {
               setmsgCopy(true);
-              copy(document.URL);
+              navigator.clipboard.writeText(document.URL);
             } }
           >
             <img src={ Share } alt="Share" />

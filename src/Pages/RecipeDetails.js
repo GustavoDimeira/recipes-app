@@ -10,7 +10,6 @@ export default function RecipeDetails({ match }) {
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [recomendationDrinks, setRecomendationDrinks] = useState([]);
   const history = useHistory();
-  const copy = require('clipboard-copy');
 
   useEffect(() => {
     if (match.path === '/foods/:id') {
@@ -46,14 +45,16 @@ export default function RecipeDetails({ match }) {
           <h4 data-testid="recipe-category">
             { element.strCategory }
           </h4>
-          favoritar
-          <input
-            data-testid="favorite-btn"
-            type="checkbox"
-            name="favorite"
-            value="favorite"
-          />
-
+          <label htmlFor="favorite" className="container">
+            Favoritar
+            <input
+              data-testid="favorite-btn"
+              type="checkbox"
+              name="favorite"
+              id="favorite"
+              value="favorite"
+            />
+          </label>
           <button
             data-testid="share-btn"
             type="button"
@@ -61,7 +62,7 @@ export default function RecipeDetails({ match }) {
             value="share"
             onClick={ () => {
               setmsgCopy(true);
-              copy(document.URL);
+              navigator.clipboard.writeText(document.URL);
             } }
           >
             <img

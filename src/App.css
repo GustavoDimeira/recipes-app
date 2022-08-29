@@ -132,3 +132,11 @@ footer {
   position: fixed;
   width: 100%;
 }
+
+.container:hover input {
+  background-color: #ccc;
+}
+
+.container input:checked {
+  background-color: #ff0a54;
+}
