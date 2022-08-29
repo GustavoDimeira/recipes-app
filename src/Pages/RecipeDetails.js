@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import initialDrinks from '../service/initialDrinks';
+import Share from '../images/shareIcon.svg';
 
 export default function RecipeDetails({ match }) {
+  const [msgCopy, setmsgCopy] = useState(false);
   const [dataApi, setDataApi] = useState([]);
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [recomendationDrinks, setRecomendationDrinks] = useState([]);
@@ -43,6 +45,33 @@ export default function RecipeDetails({ match }) {
           <h4 data-testid="recipe-category">
             { element.strCategory }
           </h4>
+          <label htmlFor="favorite" className="container">
+            Favoritar
+            <input
+              data-testid="favorite-btn"
+              type="checkbox"
+              name="favorite"
+              id="favorite"
+              value="favorite"
+            />
+          </label>
+          <button
+            data-testid="share-btn"
+            type="button"
+            name="share"
+            value="share"
+            onClick={ () => {
+              setmsgCopy(true);
+              navigator.clipboard.writeText(document.URL);
+            } }
+          >
+            <img
+              src={ Share }
+              alt="Share"
+            />
+
+          </button>
+          {msgCopy && <p>Link copied!</p>}
           <h2>Ingredients</h2>
           <div>
             { cloneIngredients
@@ -94,6 +123,7 @@ export default function RecipeDetails({ match }) {
           data-testid="start-recipe-btn"
           className="btn-start-recipe"
           type="button"
+          onClick={ () => { history.push(`/foods/${match.params.id}/in-progress`); } }
         >
           Start Recipes
         </button>
