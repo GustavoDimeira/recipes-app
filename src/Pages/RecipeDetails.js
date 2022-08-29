@@ -16,7 +16,8 @@ export default function RecipeDetails({ match }) {
         setDataApi(result.meals);
 
         const keysIngredients = Object.keys(result.meals[0])
-          .filter((filtered) => filtered.includes('Ingredient'));
+          .filter((filtered) => filtered.includes('Ingredient')
+        && result.meals[0][filtered]);
         setCloneIngredients(keysIngredients.filter((filtered) => filtered !== ''));
 
         const getRecomendationDrinks = await initialDrinks();
@@ -86,6 +87,17 @@ export default function RecipeDetails({ match }) {
             ))}
           </div>
         </div>))}
+      <div
+        className="btn-start-recipe-area"
+      >
+        <button
+          data-testid="start-recipe-btn"
+          className="btn-start-recipe"
+          type="button"
+        >
+          Start Recipes
+        </button>
+      </div>
     </div>
   );
 }

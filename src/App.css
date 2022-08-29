@@ -117,3 +117,15 @@ footer {
   flex-grow: 3;
   width: 50%;
 }
+
+.btn-start-recipe-area {
+  display: flex;
+  padding-bottom: 80px;
+}
+
+.btn-start-recipe {
+  bottom: 0;
+  margin: 5px;
+  padding: 15px;
+  position: fixed;
+}
