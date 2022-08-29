@@ -5,10 +5,12 @@ import initialDrinks from '../service/initialDrinks';
 import Share from '../images/shareIcon.svg';
 
 export default function RecipeDetails({ match }) {
+  const [msgCopy, setmsgCopy] = useState(false);
   const [dataApi, setDataApi] = useState([]);
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [recomendationDrinks, setRecomendationDrinks] = useState([]);
   const history = useHistory();
+  const copy = require('clipboard-copy');
 
   useEffect(() => {
     if (match.path === '/foods/:id') {
@@ -57,6 +59,10 @@ export default function RecipeDetails({ match }) {
             type="button"
             name="share"
             value="share"
+            onClick={ () => {
+              setmsgCopy(true);
+              copy(document.URL);
+            } }
           >
             <img
               src={ Share }
@@ -64,6 +70,7 @@ export default function RecipeDetails({ match }) {
             />
 
           </button>
+          {msgCopy && <p>Link copied!</p>}
           <h2>Ingredients</h2>
           <div>
             { cloneIngredients
