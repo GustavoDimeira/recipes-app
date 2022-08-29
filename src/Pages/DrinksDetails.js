@@ -87,6 +87,17 @@ export default function DrinksDetails({ match }) {
             ))}
           </div>
         </div>))}
+      <div
+        className="btn-start-recipe-area"
+      >
+        <button
+          data-testid="start-recipe-btn"
+          className="btn-start-recipe"
+          type="button"
+        >
+          Start Recipes
+        </button>
+      </div>
     </div>
   );
 }
