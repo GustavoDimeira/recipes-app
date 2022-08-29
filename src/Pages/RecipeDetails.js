@@ -11,6 +11,23 @@ export default function RecipeDetails({ match }) {
   const [recomendationDrinks, setRecomendationDrinks] = useState([]);
   const history = useHistory();
 
+  const handleChecked = (target, element) => {
+    console.log(element)
+    const favorite = localStorage.getItem('favoriteRecipes')
+    const favoriteParse = JSON.parse(favorite);
+    if (target.checked) {
+     if (favoriteParse === null) {
+       localStorage.setItem('favoriteRecipes', JSON.stringify( [ { id: element.idMeal , type: 'food', nationality: element.strArea, 
+       category: element.strCategory, alcoholicOrNot: '',
+       name: element.strMeal, image: element.strMealThumb }] ));
+     } else {
+       localStorage.setItem('favoriteRecipes', JSON.stringify( [...favoriteParse, { id: element.idMeal , type: 'food', nationality: element.strArea, 
+       category: element.strCategory, alcoholicOrNot: '',
+       name: element.strMeal, image: element.strMealThumb }] ));
+     }
+    } 
+  };
+
   useEffect(() => {
     if (match.path === '/foods/:id') {
       const fetchIdDetailsFoods = async () => {
@@ -53,6 +70,7 @@ export default function RecipeDetails({ match }) {
               name="favorite"
               id="favorite"
               value="favorite"
+              onClick={ ({target}) =>  handleChecked(target, element) }
             />
           </label>
           <button

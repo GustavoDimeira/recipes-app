@@ -11,6 +11,23 @@ export default function DrinksDetails({ match }) {
   const [recomendationFoods, setRecomendationFoods] = useState([]);
   const history = useHistory();
 
+  const handleChecked = (target, element) => {
+    console.log(element)
+    const favorite = localStorage.getItem('favoriteRecipes')
+    const favoriteParse = JSON.parse(favorite);
+    if (target.checked) {
+     if (favoriteParse === null) {
+       localStorage.setItem('favoriteRecipes', JSON.stringify( [ { id: element.idDrink , type: 'drink', nationality: '', 
+       category: element.strCategory, alcoholicOrNot: element.strAlcoholic,
+       name: element.strDrink, image: element.strDrinkThumb }] ));
+     } else {
+       localStorage.setItem('favoriteRecipes', JSON.stringify( [...favoriteParse, { id: element.idDrink , type: 'drink', nationality: '', 
+       category: element.strCategory, alcoholicOrNot: element.strAlcoholic,
+       name: element.strDrink, image: element.strDrinkThumb }] ));
+     }
+    } 
+  };
+
   useEffect(() => {
     if (match.path === '/drinks/:id') {
       const fetchIdDetailsDrinks = async () => {
@@ -53,6 +70,7 @@ export default function DrinksDetails({ match }) {
             type="checkbox"
             name="favorite"
             value="favorite"
+            onClick={ ({target}) =>  handleChecked(target, element) }
           />
 
           <button
