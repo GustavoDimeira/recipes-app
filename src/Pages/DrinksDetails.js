@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import initialFoods from '../service/initialFoods';
+import Share from '../images/shareIcon.svg';
 
 export default function DrinksDetails({ match }) {
   const [dataApi, setDataApi] = useState([]);
@@ -44,6 +45,26 @@ export default function DrinksDetails({ match }) {
             { element.strCategory }
             { element.strAlcoholic }
           </h4>
+          favoritar
+          <input
+            data-testid="favorite-btn"
+            type="checkbox"
+            name="favorite"
+            value="favorite"
+          />
+
+          <button
+            data-testid="share-btn"
+            type="button"
+            name="share"
+            value="share"
+          >
+            <img
+              src={ Share }
+              alt="Share"
+            />
+
+          </button>
           <h2>Ingredients</h2>
           <div>
             { cloneIngredients
@@ -95,6 +116,7 @@ export default function DrinksDetails({ match }) {
           data-testid="start-recipe-btn"
           className="btn-start-recipe"
           type="button"
+          onClick={ () => { history.push(`/drinks/${match.params.id}/in-progress`); } }
         >
           Start Recipes
         </button>
