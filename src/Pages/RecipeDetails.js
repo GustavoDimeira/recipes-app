@@ -16,7 +16,8 @@ export default function RecipeDetails({ match }) {
         setDataApi(result.meals);
 
         const keysIngredients = Object.keys(result.meals[0])
-          .filter((filtered) => filtered.includes('Ingredient'));
+          .filter((filtered) => filtered.includes('Ingredient')
+        && result.meals[0][filtered]);
         setCloneIngredients(keysIngredients.filter((filtered) => filtered !== ''));
 
         const getRecomendationDrinks = await initialDrinks();
