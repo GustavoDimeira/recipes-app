@@ -3,33 +3,59 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import initialFoods from '../service/initialFoods';
 import Share from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function DrinksDetails({ match }) {
   const [dataApi, setDataApi] = useState([]);
   const [msgCopy, setmsgCopy] = useState(false);
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [recomendationFoods, setRecomendationFoods] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
+  const [labelCheck, setLabelCheck] = useState(false);
   const history = useHistory();
 
   const handleChecked = (target, element) => {
-    console.log(element)
-    const favorite = localStorage.getItem('favoriteRecipes')
+    console.log(element);
+    setLabelCheck(!labelCheck);
+    const favorite = localStorage.getItem('favoriteRecipes');
     const favoriteParse = JSON.parse(favorite);
     if (target.checked) {
-     if (favoriteParse === null) {
-       localStorage.setItem('favoriteRecipes', JSON.stringify( [ { id: element.idDrink , type: 'drink', nationality: '', 
-       category: element.strCategory, alcoholicOrNot: element.strAlcoholic,
-       name: element.strDrink, image: element.strDrinkThumb }] ));
-     } else {
-       localStorage.setItem('favoriteRecipes', JSON.stringify( [...favoriteParse, { id: element.idDrink , type: 'drink', nationality: '', 
-       category: element.strCategory, alcoholicOrNot: element.strAlcoholic,
-       name: element.strDrink, image: element.strDrinkThumb }] ));
-     }
-    } 
+      setIsFavorite(blackHeartIcon);
+      if (favoriteParse === null) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: element.idDrink,
+          type: 'drink',
+          nationality: '',
+          category: element.strCategory,
+          alcoholicOrNot: element.strAlcoholic,
+          name: element.strDrink,
+          image: element.strDrinkThumb }]));
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify(
+          [...favoriteParse, { id: element.idDrink,
+            type: 'drink',
+            nationality: '',
+            category: element.strCategory,
+            alcoholicOrNot: element.strAlcoholic,
+            name: element.strDrink,
+            image: element.strDrinkThumb }],
+        ));
+      }
+    } else {
+      setIsFavorite(whiteHeartIcon);
+    }
   };
 
   useEffect(() => {
     if (match.path === '/drinks/:id') {
+      const favorite = localStorage.getItem('favoriteRecipes');
+      const favoriteParse = JSON.parse(favorite);
+      const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
+      console.log(favorited);
+      if (favorited?.length > 0) {
+        setIsFavorite(blackHeartIcon);
+        setLabelCheck(true);
+      }
       const fetchIdDetailsDrinks = async () => {
         const result = await fetch(
           `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`,
@@ -64,15 +90,22 @@ export default function DrinksDetails({ match }) {
             {element.strCategory}
             {element.strAlcoholic}
           </h4>
-          favoritar
-          <input
-            data-testid="favorite-btn"
-            type="checkbox"
-            name="favorite"
-            value="favorite"
-            onClick={ ({target}) =>  handleChecked(target, element) }
-          />
-
+          <label htmlFor="favorite" className="container">
+            <input
+              type="checkbox"
+              name="favorite"
+              id="favorite"
+              value="favorite"
+              onChange={ ({ target }) => handleChecked(target, element) }
+              hidden
+              checked={ labelCheck }
+            />
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite }
+              alt="Is Favorite"
+            />
+          </label>
           <button
             data-testid="share-btn"
             type="button"
