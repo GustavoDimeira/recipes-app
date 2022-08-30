@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import Share from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FavoriteRecipes() {
   const [favoriteLocal, setFavoriteLocal] = useState([]);
@@ -34,32 +36,39 @@ export default function FavoriteRecipes() {
       </button>
       {
         favoriteLocal
-        && favoriteLocal?.map((favorite, index) => (
+        && favoriteLocal.map((favorite, index) => (
           <div
           key={ index }
           >
             <img
-             data-testid={ `${index}-horizontal-image` }
+             data-testid={ `${ index }-horizontal-image` }
              src={ favorite.image }
              alt="Favorite"
              />
-            <p data-testid={ `${index}-horizontal-name` }>{favorite.name}</p>
-            <p data-testid={ `${index}-horizontal-top-text` }>{favorite.category}</p>
-            <p>
-              {(favorite.type === 'food') ? favorite.nationality : (
+            <p data-testid={ `${ index }-horizontal-name` }>{favorite.name}</p>
+            <p data-testid={ `${ index }-horizontal-top-text` }>
+              {(favorite.type === 'food') ? `${ favorite.nationality } - ${ favorite.category }` : (
                 favorite.alcoholicOrNot)}
             </p>
             <button
-              data-testid={ `${index}-horizontal-share-btn` }
+              data-testid={ `${ index }-horizontal-share-btn` }
               type="button"
+              src={ Share }
               >
-              Share
+              <img
+              src={ Share }
+              alt="Share"
+            />
             </button>
             <button
-               data-testid={ `${index}-horizontal-favorite-btn` }
+               data-testid={ `${ index }-horizontal-favorite-btn` }
               type="button"
+              src={ blackHeartIcon }
               >
-              Deslike
+              <img
+              src={ blackHeartIcon }
+              alt="Favorite"
+            />
             </button>
           </div>
         ))
