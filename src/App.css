@@ -142,11 +142,10 @@ footer {
 }
 
 
-
 @media screen and ( min-width : 480px ) {
 
   .foto-foods {
-    height: 10vh;
+    height: 15vh;
     width: 10vw;
   }
 }
