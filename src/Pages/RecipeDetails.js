@@ -3,16 +3,59 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import initialDrinks from '../service/initialDrinks';
 import Share from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function RecipeDetails({ match }) {
   const [msgCopy, setmsgCopy] = useState(false);
   const [dataApi, setDataApi] = useState([]);
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [recomendationDrinks, setRecomendationDrinks] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
+  const [labelCheck, setLabelCheck] = useState(false);
   const history = useHistory();
+
+  const handleChecked = (target, element) => {
+    console.log(element);
+    setLabelCheck(!labelCheck);
+    const favorite = localStorage.getItem('favoriteRecipes');
+    const favoriteParse = JSON.parse(favorite);
+    if (target.checked) {
+      setIsFavorite(blackHeartIcon);
+      if (favoriteParse === null) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: element.idMeal,
+          type: 'food',
+          nationality: element.strArea,
+          category: element.strCategory,
+          alcoholicOrNot: '',
+          name: element.strMeal,
+          image: element.strMealThumb }]));
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify(
+          [...favoriteParse, { id: element.idMeal,
+            type: 'food',
+            nationality: element.strArea,
+            category: element.strCategory,
+            alcoholicOrNot: '',
+            name: element.strMeal,
+            image: element.strMealThumb }],
+        ));
+      }
+    } else {
+      setIsFavorite(whiteHeartIcon);
+    }
+  };
 
   useEffect(() => {
     if (match.path === '/foods/:id') {
+      const favorite = localStorage.getItem('favoriteRecipes');
+      const favoriteParse = JSON.parse(favorite);
+      const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
+      console.log(favorited);
+      if (favorited?.length > 0) {
+        setIsFavorite(blackHeartIcon);
+        setLabelCheck(true);
+      }
       const fetchIdDetailsFoods = async () => {
         const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`).then((data) => data.json());
         setDataApi(result.meals);
@@ -46,13 +89,19 @@ export default function RecipeDetails({ match }) {
             { element.strCategory }
           </h4>
           <label htmlFor="favorite" className="container">
-            Favoritar
             <input
-              data-testid="favorite-btn"
               type="checkbox"
               name="favorite"
               id="favorite"
               value="favorite"
+              onChange={ ({ target }) => handleChecked(target, element) }
+              hidden
+              checked={ labelCheck }
+            />
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite }
+              alt="Is Favorite"
             />
           </label>
           <button
