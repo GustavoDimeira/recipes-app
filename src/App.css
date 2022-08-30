@@ -161,9 +161,35 @@ footer {
 
 .card-recipes-favorites {
   align-items: center;
+  background-color: white;
+  border: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.container-card-recipes-favorites {
+  align-items: center;
+  background-color: white;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-buton-recipes-favorites {
+  align-items: center;
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buton-recipes-favorites {
+  background-color: hsl(157, 83%, 35%);
+  border: none;
+  margin: 35px;
+  width: 30%;
 }
 
 .butons-favorite {

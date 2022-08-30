@@ -36,31 +36,36 @@ export default function FavoriteRecipes() {
   return (
     <div>
       <Header title="Favorite Recipes" />
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => typeFiltered('food') }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => typeFiltered('drink') }
-      >
-        Drinks
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => typeFiltered('all') }
-      >
-        All
-      </button>
+      <div className="container-buton-recipes-favorites">
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={() => typeFiltered('food')}
+          className="buton-recipes-favorites"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={() => typeFiltered('drink')}
+          className="buton-recipes-favorites"
+        >
+          Drinks
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={() => typeFiltered('all')}
+          className="buton-recipes-favorites"
+        >
+          All
+        </button>
+      </div>
       {
         favoriteLocalCopy
         && favoriteLocalCopy.map((favorite, index) => (
-          <div key={ index }>
+          <div key={ index } className="container-card-recipes-favorites">
             <button
               type="button"
               className="card-recipes-favorites"
