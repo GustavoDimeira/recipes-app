@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Share from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+
 export default function FavoriteRecipes() {
   const [favoriteLocal, setFavoriteLocal] = useState([]);
   const [msgCopy, setmsgCopy] = useState(false);
@@ -10,7 +11,12 @@ export default function FavoriteRecipes() {
     const favoriteParse = JSON.parse(favorite);
     setFavoriteLocal(favoriteParse);
   }, []);
-  console.log(favoriteLocal);
+  const localStorageFiltered = (idx) => {
+    const localUpdated = [...favoriteLocal];
+    localUpdated.splice(idx, 1);
+    setFavoriteLocal(localUpdated);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(localUpdated));
+  };
   return (
     <div>
       <Header title="Favorite Recipes" />
@@ -72,6 +78,7 @@ export default function FavoriteRecipes() {
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 type="button"
                 src={ blackHeartIcon }
+                onClick={ () => localStorageFiltered(index) }
               >
                 <img
                   src={ blackHeartIcon }
