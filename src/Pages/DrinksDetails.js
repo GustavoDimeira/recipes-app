@@ -156,9 +156,8 @@ export default function DrinksDetails({ match }) {
                 className="video"
               />
             )}
-
             <h2>Recommended</h2>
-          </div>   
+          </div>
           <div className="recomendation-foods">
             {recomendationFoods.map((rec, idx) => (
               <button
