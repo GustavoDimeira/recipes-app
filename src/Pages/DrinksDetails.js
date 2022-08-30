@@ -16,7 +16,6 @@ export default function DrinksDetails({ match }) {
   const history = useHistory();
 
   const handleChecked = (target, element) => {
-    console.log(element);
     setLabelCheck(!labelCheck);
     const favorite = localStorage.getItem('favoriteRecipes');
     const favoriteParse = JSON.parse(favorite);
@@ -51,30 +50,34 @@ export default function DrinksDetails({ match }) {
       const favorite = localStorage.getItem('favoriteRecipes');
       const favoriteParse = JSON.parse(favorite);
       const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
-      console.log(favorited);
       if (favorited?.length > 0) {
         setIsFavorite(blackHeartIcon);
         setLabelCheck(true);
       }
       const fetchIdDetailsDrinks = async () => {
-        const result = await fetch(
-          `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`,
-        ).then((data) => data.json());
-        setDataApi(result.drinks);
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`)
+          .then((data) => data.json())
+          .then((result) => setDataApi(result.drinks));
+      };
+      fetchIdDetailsDrinks();
+    }
+  }, [match.params.id, match.path]);
 
-        const keysIngredients = Object.keys(result.drinks[0]).filter(
-          (filtered) => filtered.includes('Ingredient') && result.drinks[0][filtered],
+  useEffect(() => {
+    if (dataApi.length > 0) {
+      const ingredients = async () => {
+        const keysIngredients = Object.keys(dataApi[0]).filter(
+          (filtered) => filtered.includes('Ingredient') && dataApi[0][filtered],
         );
-        setCloneIngredients(
-          keysIngredients.filter((filtered) => filtered !== ''),
-        );
+        setCloneIngredients(keysIngredients);
 
         const getRecomendationFoods = await initialFoods();
         setRecomendationFoods(getRecomendationFoods.meals.slice(+'0', +'6'));
       };
-      fetchIdDetailsDrinks();
+      ingredients();
     }
-  }, []);
+  }, [dataApi]);
+
   return (
     <div>
       {dataApi.map((element, index) => (
@@ -129,9 +132,7 @@ export default function DrinksDetails({ match }) {
               && cloneIngredients.map((ingredientKey, key) => (
                 <div key={ key }>
                   <p data-testid={ `${key}-ingredient-name-and-measure` }>
-                    {`${element[ingredientKey]} - ${
-                      element[`strMeasure${key + 1}`]
-                    }`}
+                    {`${element[ingredientKey]} - ${element[`strMeasure${key + 1}`]}`}
                   </p>
                 </div>
               ))}
@@ -157,7 +158,7 @@ export default function DrinksDetails({ match }) {
             )}
 
             <h2>Recommended</h2>
-          </div>
+          </div>   
           <div className="recomendation-foods">
             {recomendationFoods.map((rec, idx) => (
               <button

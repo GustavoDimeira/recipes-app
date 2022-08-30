@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { useHistory } from 'react-router-dom';
-import Share from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Share from '../images/shareIcon.svg';
 
-export default function DrinksInProgress({ match }) {
-  const [dataApi, setDataApi] = useState([]);
+export default function RecipeInProgress({ match }) {
   const [msgCopy, setmsgCopy] = useState(false);
+  const [dataApi, setDataApi] = useState([]);
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
   const [labelCheck, setLabelCheck] = useState(false);
-  // const history = useHistory();
 
   const handleChecked = (target, element) => {
     setLabelCheck(!labelCheck);
@@ -20,22 +18,22 @@ export default function DrinksInProgress({ match }) {
     if (target.checked) {
       setIsFavorite(blackHeartIcon);
       if (favoriteParse === null) {
-        localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: element.idDrink,
-          type: 'drink',
-          nationality: '',
+        localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: element.idMeal,
+          type: 'food',
+          nationality: element.strArea,
           category: element.strCategory,
-          alcoholicOrNot: element.strAlcoholic,
-          name: element.strDrink,
-          image: element.strDrinkThumb }]));
+          alcoholicOrNot: '',
+          name: element.strMeal,
+          image: element.strMealThumb }]));
       } else {
         localStorage.setItem('favoriteRecipes', JSON.stringify(
-          [...favoriteParse, { id: element.idDrink,
-            type: 'drink',
-            nationality: '',
+          [...favoriteParse, { id: element.idMeal,
+            type: 'food',
+            nationality: element.strArea,
             category: element.strCategory,
-            alcoholicOrNot: element.strAlcoholic,
-            name: element.strDrink,
-            image: element.strDrinkThumb }],
+            alcoholicOrNot: '',
+            name: element.strMeal,
+            image: element.strMealThumb }],
         ));
       }
     } else {
@@ -44,7 +42,7 @@ export default function DrinksInProgress({ match }) {
   };
 
   useEffect(() => {
-    if (match.path === '/drinks/:id') {
+    if (match.path === '/foods/:id') {
       const favorite = localStorage.getItem('favoriteRecipes');
       const favoriteParse = JSON.parse(favorite);
       const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
@@ -53,20 +51,20 @@ export default function DrinksInProgress({ match }) {
         setLabelCheck(true);
       }
     }
-    const fetchIdDetailsDrinks = async () => {
-      fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`)
+    const fetchIdDetailsFoods = async () => {
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`)
         .then((data) => data.json())
-        .then((result) => setDataApi(result.drinks));
+        .then((result) => setDataApi(result.meals));
     };
-    fetchIdDetailsDrinks();
+    fetchIdDetailsFoods();
   }, []);
 
   useEffect(() => {
     if (dataApi.length > 0) {
       const ingredients = async () => {
-        const keysIngredients = Object.keys(dataApi[0]).filter(
-          (filtered) => filtered.includes('Ingredient') && dataApi[0][filtered],
-        );
+        const keysIngredients = Object
+          .keys(dataApi[0]).filter((filtered) => filtered
+            .includes('Ingredient') && dataApi[0][filtered]);
         setCloneIngredients(keysIngredients);
       };
       ingredients();
@@ -80,13 +78,14 @@ export default function DrinksInProgress({ match }) {
           <img
             className="foto-foods"
             data-testid="recipe-photo"
-            src={ element.strDrinkThumb }
-            alt={ element.strDrinkThumb }
+            src={ element.strMealThumb }
+            alt={ element.strMealThumb }
           />
-          <h1 data-testid="recipe-title">{element.strDrink}</h1>
+          <h1 data-testid="recipe-title">
+            {element.strMeal}
+          </h1>
           <h4 data-testid="recipe-category">
             {element.strCategory}
-            {element.strAlcoholic}
           </h4>
           <label htmlFor="favorite" className="container">
             <input
@@ -114,9 +113,12 @@ export default function DrinksInProgress({ match }) {
               navigator.clipboard.writeText(document.URL);
             } }
           >
-            <img src={ Share } alt="Share" />
-          </button>
+            <img
+              src={ Share }
+              alt="Share"
+            />
 
+          </button>
           {msgCopy && <p>Link copied!</p>}
           <h2>Ingredients</h2>
           <div>
@@ -134,9 +136,10 @@ export default function DrinksInProgress({ match }) {
           </div>
           <h2>Instructions</h2>
           <p data-testid="instructions">{element.strInstructions}</p>
-        </div>
-      ))}
-      <div className="btn-start-recipe-area">
+        </div>))}
+      <div
+        className="btn-start-recipe-area"
+      >
         <button
           data-testid="finish-recipe-btn"
           className="btn-start-recipe"
@@ -150,7 +153,7 @@ export default function DrinksInProgress({ match }) {
   );
 }
 
-DrinksInProgress.propTypes = {
+RecipeInProgress.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string,
   }),
