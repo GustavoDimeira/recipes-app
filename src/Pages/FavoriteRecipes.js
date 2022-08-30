@@ -2,21 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Share from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
 export default function FavoriteRecipes() {
   const [favoriteLocal, setFavoriteLocal] = useState([]);
-
+  const [msgCopy, setmsgCopy] = useState(false);
   useEffect(() => {
     const favorite = localStorage.getItem('favoriteRecipes');
     const favoriteParse = JSON.parse(favorite);
     setFavoriteLocal(favoriteParse);
   }, []);
-
   console.log(favoriteLocal);
   return (
     <div>
       <Header title="Favorite Recipes" />
-
       <button
         type="button"
         data-testid="filter-by-food-btn"
@@ -59,6 +56,12 @@ export default function FavoriteRecipes() {
                 data-testid={ `${index}-horizontal-share-btn` }
                 type="button"
                 src={ Share }
+                onClick={ () => {
+                  setmsgCopy(!msgCopy);
+                  navigator.clipboard.writeText(
+                    `http://localhost:3000/${favorite.type}s/${favorite.id}`,
+                  );
+                } }
               >
                 <img
                   src={ Share }
@@ -76,10 +79,10 @@ export default function FavoriteRecipes() {
                 />
               </button>
             </div>
+            {msgCopy && <p>Link copied!</p>}
           </div>
         ))
       }
-
     </div>
   );
 }
