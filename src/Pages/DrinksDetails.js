@@ -155,7 +155,7 @@ export default function DrinksDetails({ match }) {
                 className="video"
               />
             )}
-            {/*  */}
+
             <h2>Recommended</h2>
           </div>
           <div className="recomendation-foods">
@@ -183,7 +183,6 @@ export default function DrinksDetails({ match }) {
           </div>
         </div>
       ))}
-
       <div className="btn-start-recipe-area">
         <button
           data-testid="start-recipe-btn"
