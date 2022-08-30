@@ -51,7 +51,6 @@ export default function DrinksDetails({ match }) {
       const favorite = localStorage.getItem('favoriteRecipes');
       const favoriteParse = JSON.parse(favorite);
       const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
-      console.log(favorited);
       if (favorited?.length > 0) {
         setIsFavorite(blackHeartIcon);
         setLabelCheck(true);
