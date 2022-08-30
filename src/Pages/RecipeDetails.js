@@ -96,8 +96,6 @@ export default function RecipeDetails({ match }) {
     const local = { meals: { [id]: [] } };
     localStorage
       .setItem('inProgressRecipes', JSON.stringify(local));
-    setRecepeInProgress(dataApi);
-    setCloneIngredients(cloneIngredients)
   };
 
   return (

@@ -16,7 +16,6 @@ export default function DrinksDetails({ match }) {
   const history = useHistory();
 
   const handleChecked = (target, element) => {
-    console.log(element);
     setLabelCheck(!labelCheck);
     const favorite = localStorage.getItem('favoriteRecipes');
     const favoriteParse = JSON.parse(favorite);
@@ -148,7 +147,6 @@ export default function DrinksDetails({ match }) {
               data-testid="video"
             />
           )}
-          {/*  */}
           <h2>Recommended</h2>
           <div className="recomendation-foods">
             {recomendationFoods.map((rec, idx) => (

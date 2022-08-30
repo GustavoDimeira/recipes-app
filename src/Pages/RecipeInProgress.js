@@ -1,22 +1,76 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import useFoods from '../context/useFoods';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Share from '../images/shareIcon.svg';
 
 export default function RecipeInProgress({ match }) {
-  const { keysIngredients } = useContext(useFoods);
+  const [msgCopy, setmsgCopy] = useState(false);
   const [dataApi, setDataApi] = useState([]);
-  // const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
-  // const [labelCheck, setLabelCheck] = useState(false);
+  const [cloneIngredients, setCloneIngredients] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
+  const [labelCheck, setLabelCheck] = useState(false);
+
+  const handleChecked = (target, element) => {
+    setLabelCheck(!labelCheck);
+    const favorite = localStorage.getItem('favoriteRecipes');
+    const favoriteParse = JSON.parse(favorite);
+    if (target.checked) {
+      setIsFavorite(blackHeartIcon);
+      if (favoriteParse === null) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: element.idMeal,
+          type: 'food',
+          nationality: element.strArea,
+          category: element.strCategory,
+          alcoholicOrNot: '',
+          name: element.strMeal,
+          image: element.strMealThumb }]));
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify(
+          [...favoriteParse, { id: element.idMeal,
+            type: 'food',
+            nationality: element.strArea,
+            category: element.strCategory,
+            alcoholicOrNot: '',
+            name: element.strMeal,
+            image: element.strMealThumb }],
+        ));
+      }
+    } else {
+      setIsFavorite(whiteHeartIcon);
+    }
+  };
+
   useEffect(() => {
+    if (match.path === '/foods/:id') {
+      const favorite = localStorage.getItem('favoriteRecipes');
+      const favoriteParse = JSON.parse(favorite);
+      const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
+      if (favorited?.length > 0) {
+        setIsFavorite(blackHeartIcon);
+        setLabelCheck(true);
+      }
+    }
     const fetchIdDetailsFoods = async () => {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`)
         .then((data) => data.json())
         .then((result) => setDataApi(result.meals));
     };
     fetchIdDetailsFoods();
-  });
+  }, []);
+
+  useEffect(() => {
+    if (dataApi.length > 0) {
+      const ingredients = async () => {
+        const keysIngredients = Object
+          .keys(dataApi[0]).filter((filtered) => filtered
+            .includes('Ingredient') && dataApi[0][filtered]);
+        setCloneIngredients(keysIngredients);
+      };
+      ingredients();
+    }
+  }, [dataApi]);
+
   return (
     <div>
       {dataApi.map((element, index) => (
@@ -33,7 +87,7 @@ export default function RecipeInProgress({ match }) {
           <h4 data-testid="recipe-category">
             {element.strCategory}
           </h4>
-          {/* <label htmlFor="favorite" className="container">
+          <label htmlFor="favorite" className="container">
             <input
               type="checkbox"
               name="favorite"
@@ -65,15 +119,18 @@ export default function RecipeInProgress({ match }) {
             />
 
           </button>
-          {msgCopy && <p>Link copied!</p>} */}
+          {msgCopy && <p>Link copied!</p>}
           <h2>Ingredients</h2>
           <div>
-            {keysIngredients
-              && keysIngredients.map((ingredientKey, key) => (
+            {cloneIngredients
+              && cloneIngredients.map((ingredientKey, key) => (
                 <div key={ key }>
-                  <p data-testid={ `${key}-ingredient-name-and-measure` }>
-                    {`${element[ingredientKey]} - ${element[`strMeasure${key + 1}`]}`}
-                  </p>
+                  <label htmlFor={ key }>
+                    <span data-testid={ `data-testid=${key}-ingredient-step` }>
+                      <input type="checkbox" id={ key } />
+                      {`${element[ingredientKey]} - ${element[`strMeasure${key + 1}`]}`}
+                    </span>
+                  </label>
                 </div>
               ))}
           </div>
@@ -84,14 +141,12 @@ export default function RecipeInProgress({ match }) {
         className="btn-start-recipe-area"
       >
         <button
-          data-testid="start-recipe-btn"
+          data-testid="finish-recipe-btn"
           className="btn-start-recipe"
           type="button"
-          onClick={ () => {
-            startRecipes();
-          } }
+          onClick={ () => {} }
         >
-          Start Recipes
+          Finish Recipe
         </button>
       </div>
     </div>
