@@ -82,52 +82,53 @@ export default function DrinksDetails({ match }) {
     <div>
       {dataApi.map((element, index) => (
         <div key={ index }>
-          <img
-            className="foto-foods"
-            data-testid="recipe-photo"
-            src={ element.strDrinkThumb }
-            alt={ element.strDrinkThumb }
-          />
-          <h1 data-testid="recipe-title">{element.strDrink}</h1>
-          <h4 data-testid="recipe-category">
-            {element.strCategory}
-            {element.strAlcoholic}
-          </h4>
+          <div className="details-container">
+            <img
+              className="video"
+              data-testid="recipe-photo"
+              src={ element.strDrinkThumb }
+              alt={ element.strDrinkThumb }
+            />
+            <h1 data-testid="recipe-title">{element.strDrink}</h1>
+            <h4 data-testid="recipe-category">
+              {element.strCategory}
+              {element.strAlcoholic}
+            </h4>
 
-          <div className="butons-favorite">
-            <label htmlFor="favorite" className="container">
-              <input
-                type="checkbox"
-                name="favorite"
-                id="favorite"
-                value="favorite"
-                onChange={ ({ target }) => handleChecked(target, element) }
-                hidden
-                checked={ labelCheck }
-              />
-              <img
-                data-testid="favorite-btn"
-                src={ isFavorite }
-                alt="Is Favorite"
-              />
-            </label>
-            <button
-              data-testid="share-btn"
-              type="button"
-              name="share"
-              value="share"
-              onClick={ () => {
-                setmsgCopy(true);
-                navigator.clipboard.writeText(document.URL);
-              } }
-            >
-              <img src={ Share } alt="Share" />
-            </button>
-          </div>
-          {msgCopy && <p>Link copied!</p>}
-          <h2>Ingredients</h2>
-          <div>
-            {cloneIngredients
+            <div className="butons-favorite">
+              <label htmlFor="favorite" className="container">
+                <input
+                  type="checkbox"
+                  name="favorite"
+                  id="favorite"
+                  value="favorite"
+                  onChange={ ({ target }) => handleChecked(target, element) }
+                  hidden
+                  checked={ labelCheck }
+                />
+                <img
+                  data-testid="favorite-btn"
+                  src={ isFavorite }
+                  alt="Is Favorite"
+                />
+              </label>
+              <button
+                data-testid="share-btn"
+                type="button"
+                name="share"
+                value="share"
+                onClick={ () => {
+                  setmsgCopy(true);
+                  navigator.clipboard.writeText(document.URL);
+                } }
+              >
+                <img src={ Share } alt="Share" />
+              </button>
+            </div>
+            {msgCopy && <p>Link copied!</p>}
+            <h2>Ingredients</h2>
+            <div className="ingredient-details">
+              {cloneIngredients
               && cloneIngredients.map((ingredientKey, key) => (
                 <div key={ key }>
                   <p data-testid={ `${key}-ingredient-name-and-measure` }>
@@ -135,21 +136,28 @@ export default function DrinksDetails({ match }) {
                   </p>
                 </div>
               ))}
+            </div>
+            <h2>Instructions</h2>
+            <p
+              data-testid="instructions"
+              className="ingredient-details"
+            >
+              {element.strInstructions}
+            </p>
+            {element?.strVideo === null ? (
+              <div />
+            ) : (
+              <iframe
+                src={ `https://www.youtube.com/embed/${
+                  element.strVideo.split('=')[1]
+                }` }
+                title={ `{${element.strDrink}}` }
+                data-testid="video"
+                className="video"
+              />
+            )}
+            <h2>Recommended</h2>
           </div>
-          <h2>Instructions</h2>
-          <p data-testid="instructions">{element.strInstructions}</p>
-          {element?.strVideo === null ? (
-            <div />
-          ) : (
-            <iframe
-              src={ `https://www.youtube.com/embed/${
-                element.strVideo.split('=')[1]
-              }` }
-              title={ `{${element.strDrink}}` }
-              data-testid="video"
-            />
-          )}
-          <h2>Recommended</h2>
           <div className="recomendation-foods">
             {recomendationFoods.map((rec, idx) => (
               <button

@@ -75,56 +75,59 @@ export default function RecipeInProgress({ match }) {
     <div>
       {dataApi.map((element, index) => (
         <div key={ index }>
-          <img
-            className="foto-foods"
-            data-testid="recipe-photo"
-            src={ element.strMealThumb }
-            alt={ element.strMealThumb }
-          />
-          <h1 data-testid="recipe-title">
-            {element.strMeal}
-          </h1>
-          <h4 data-testid="recipe-category">
-            {element.strCategory}
-          </h4>
-          <label htmlFor="favorite" className="container">
-            <input
-              type="checkbox"
-              name="favorite"
-              id="favorite"
-              value="favorite"
-              onChange={ ({ target }) => handleChecked(target, element) }
-              hidden
-              checked={ labelCheck }
-            />
+          <div className="details-container">
             <img
-              data-testid="favorite-btn"
-              src={ isFavorite }
-              alt="Is Favorite"
+              className="video"
+              data-testid="recipe-photo"
+              src={ element.strMealThumb }
+              alt={ element.strMealThumb }
             />
-          </label>
-          <button
-            data-testid="share-btn"
-            type="button"
-            name="share"
-            value="share"
-            onClick={ () => {
-              setmsgCopy(true);
-              navigator.clipboard.writeText(document.URL);
-            } }
-          >
-            <img
-              src={ Share }
-              alt="Share"
-            />
+            <h1 data-testid="recipe-title">
+              {element.strMeal}
+            </h1>
+            <h4 data-testid="recipe-category">
+              {element.strCategory}
+            </h4>
+            <div className="butons-favorite">
+              <label htmlFor="favorite" className="container">
+                <input
+                  type="checkbox"
+                  name="favorite"
+                  id="favorite"
+                  value="favorite"
+                  onChange={ ({ target }) => handleChecked(target, element) }
+                  hidden
+                  checked={ labelCheck }
+                />
+                <img
+                  data-testid="favorite-btn"
+                  src={ isFavorite }
+                  alt="Is Favorite"
+                />
+              </label>
+              <button
+                data-testid="share-btn"
+                type="button"
+                name="share"
+                value="share"
+                onClick={ () => {
+                  setmsgCopy(true);
+                  navigator.clipboard.writeText(document.URL);
+                } }
+              >
+                <img
+                  src={ Share }
+                  alt="Share"
+                />
 
-          </button>
-          {msgCopy && <p>Link copied!</p>}
-          <h2>Ingredients</h2>
-          <div>
-            {cloneIngredients
+              </button>
+            </div>
+            {msgCopy && <p>Link copied!</p>}
+            <h2>Ingredients</h2>
+            <div>
+              {cloneIngredients
               && cloneIngredients.map((ingredientKey, key) => (
-                <div key={ key }>
+                <div key={ key } className="ingredient-details">
                   <label htmlFor={ key }>
                     <span data-testid={ `data-testid=${key}-ingredient-step` }>
                       <input type="checkbox" id={ key } />
@@ -133,9 +136,15 @@ export default function RecipeInProgress({ match }) {
                   </label>
                 </div>
               ))}
+            </div>
+            <h2>Instructions</h2>
+            <p
+              data-testid="instructions"
+              className="ingredient-details"
+            >
+              {element.strInstructions}
+            </p>
           </div>
-          <h2>Instructions</h2>
-          <p data-testid="instructions">{element.strInstructions}</p>
         </div>))}
       <div
         className="btn-start-recipe-area"
