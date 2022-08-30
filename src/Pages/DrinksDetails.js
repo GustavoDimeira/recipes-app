@@ -90,6 +90,7 @@ export default function DrinksDetails({ match }) {
             {element.strCategory}
             {element.strAlcoholic}
           </h4>
+
           <div className="butons-favorite">
             <label htmlFor="favorite" className="container">
               <input

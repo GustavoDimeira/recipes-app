@@ -88,6 +88,7 @@ export default function RecipeDetails({ match }) {
           <h4 data-testid="recipe-category">
             { element.strCategory }
           </h4>
+
           <div className="butons-favorite">
             <label htmlFor="favorite" className="container">
               <input
