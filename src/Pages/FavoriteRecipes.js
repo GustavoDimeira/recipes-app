@@ -24,6 +24,7 @@ export default function FavoriteRecipes() {
     const favoriteParse = JSON.parse(favorite);
     setFavoriteLocalCopy(favoriteParse);
   };
+
   const typeFiltered = (type) => {
     if (type === 'all') {
       setFavoriteLocalCopy(favoriteLocal);
@@ -33,6 +34,7 @@ export default function FavoriteRecipes() {
       setFavoriteLocalCopy(favoriteLocal.filter((element) => element.type === 'drink'));
     }
   };
+
   return (
     <div>
       <Header title="Favorite Recipes" />
@@ -40,7 +42,7 @@ export default function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={() => typeFiltered('food')}
+          onClick={ () => typeFiltered('food') }
           className="buton-recipes-favorites"
         >
           Food
@@ -48,7 +50,7 @@ export default function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={() => typeFiltered('drink')}
+          onClick={ () => typeFiltered('drink') }
           className="buton-recipes-favorites"
         >
           Drinks
@@ -56,14 +58,15 @@ export default function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          onClick={() => typeFiltered('all')}
+          onClick={ () => typeFiltered('all') }
           className="buton-recipes-favorites"
         >
           All
         </button>
       </div>
-      {
-        favoriteLocalCopy
+      <div className="container-map">
+        {
+          favoriteLocalCopy
         && favoriteLocalCopy.map((favorite, index) => (
           <div key={ index } className="container-card-recipes-favorites">
             <button
@@ -118,7 +121,8 @@ export default function FavoriteRecipes() {
             {msgCopy && <p>Link copied!</p>}
           </div>
         ))
-      }
+        }
+      </div>
     </div>
   );
 }

@@ -188,8 +188,16 @@ footer {
 .buton-recipes-favorites {
   background-color: hsl(157, 83%, 35%);
   border: none;
+  color: #464646;
+  font-family: sans-serif;
   margin: 35px;
   width: 30%;
+}
+
+.container-map {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .butons-favorite {
