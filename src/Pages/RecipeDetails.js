@@ -5,6 +5,7 @@ import initialDrinks from '../service/initialDrinks';
 import Share from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import getDoneLocal from '../service/getDoneLocal';
 
 export default function RecipeDetails({ match }) {
   const [msgCopy, setmsgCopy] = useState(false);
@@ -16,7 +17,6 @@ export default function RecipeDetails({ match }) {
   const history = useHistory();
 
   const handleChecked = (target, element) => {
-    console.log(element);
     setLabelCheck(!labelCheck);
     const favorite = localStorage.getItem('favoriteRecipes');
     const favoriteParse = JSON.parse(favorite);
@@ -79,6 +79,26 @@ export default function RecipeDetails({ match }) {
       ingredients();
     }
   }, [dataApi]);
+
+  // useEffect(() => {
+  //   // seTest(getDoneLocal(match.params.id));
+  //   const getDoneRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   // if (getDoneRecipe !== null) {
+  //   //   const testDoneRecipe = getDoneRecipe
+  //   //     .some((el) => el.id === Number(match.params.id));
+  //   //   console.log(testDoneRecipe);
+  //   // }
+  // }, [])
+
+  const startRecipes = () => {
+    const { id } = match.params;
+    history.push(`/foods/${match.params.id}/in-progress`);
+    const local = { meals: { [id]: [] } };
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify(local));
+    setRecepeInProgress(dataApi);
+    setCloneIngredients(cloneIngredients)
+  };
 
   return (
     <div>
@@ -180,7 +200,9 @@ export default function RecipeDetails({ match }) {
           data-testid="start-recipe-btn"
           className="btn-start-recipe"
           type="button"
-          onClick={ () => { history.push(`/foods/${match.params.id}/in-progress`); } }
+          onClick={ () => {
+            startRecipes();
+          } }
         >
           Start Recipes
         </button>

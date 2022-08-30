@@ -24,6 +24,10 @@ function FoodsProvider({ children }) {
     resultsFood,
     setresultsFood,
     categoryFood,
+    recepeInProgress,
+    setRecepeInProgress,
+    keysIngredients,
+    setKeysIngredients,
   };
   useEffect(() => {
     const fetchApi = async () => {
