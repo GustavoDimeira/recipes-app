@@ -140,3 +140,39 @@ footer {
 .container input:checked {
   background-color: #ff0a54;
 }
+
+
+
+@media screen and ( min-width : 480px ) {
+
+  .foto-foods {
+    height: 10vh;
+    width: 10vw;
+  }
+}
+
+@media screen and ( max-device-width : 480px ) {
+
+  .foto-foods {
+    height: 20vh;
+    width: 25vw;
+  }
+}
+
+
+.card-recipes-favorites {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.butons-favorite {
+  display: flex;
+  flex-direction: row;
+}
+
+.butons-favorite > button {
+  background-color: white;
+  border: none;
+}
