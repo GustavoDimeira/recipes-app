@@ -9,37 +9,39 @@ export default function Profile() {
   const emailParse = JSON.parse(email);
 
   return (
-    <div>
+    <div className="profile">
       <Header title="Profile" />
       <h2 data-testid="profile-email">
         {emailParse?.email}
       </h2>
-      <button
-        data-testid="profile-done-btn"
-        type="button"
-        onClick={ () => history.push('/done-recipes') }
-      >
-        Done Recipes
-      </button>
+      <div className="container-buton-profile">
+        <button
+          data-testid="profile-done-btn"
+          type="button"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </button>
 
-      <button
-        data-testid="profile-favorite-btn"
-        type="button"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
+        <button
+          data-testid="profile-favorite-btn"
+          type="button"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
 
-      <button
-        data-testid="profile-logout-btn"
-        type="button"
-        onClick={ () => {
-          localStorage.clear();
-          history.push('/');
-        } }
-      >
-        Logout
-      </button>
+        <button
+          data-testid="profile-logout-btn"
+          type="button"
+          onClick={ () => {
+            localStorage.clear();
+            history.push('/');
+          } }
+        >
+          Logout
+        </button>
+      </div>
       <Footer />
     </div>
   );
