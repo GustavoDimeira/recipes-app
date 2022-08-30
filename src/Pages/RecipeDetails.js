@@ -51,26 +51,34 @@ export default function RecipeDetails({ match }) {
       const favorite = localStorage.getItem('favoriteRecipes');
       const favoriteParse = JSON.parse(favorite);
       const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
-      console.log(favorited);
       if (favorited?.length > 0) {
         setIsFavorite(blackHeartIcon);
         setLabelCheck(true);
       }
       const fetchIdDetailsFoods = async () => {
-        const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`).then((data) => data.json());
-        setDataApi(result.meals);
+        fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`)
+          .then((data) => data.json())
+          .then((result) => setDataApi(result.meals));
+      };
+      fetchIdDetailsFoods();
+    }
+  }, [match.params.id, match.path]);
 
-        const keysIngredients = Object.keys(result.meals[0])
-          .filter((filtered) => filtered.includes('Ingredient')
-        && result.meals[0][filtered]);
-        setCloneIngredients(keysIngredients.filter((filtered) => filtered !== ''));
+  useEffect(() => {
+    if (dataApi.length > 0) {
+      const ingredients = async () => {
+        const keysIngredients = Object
+          .keys(dataApi[0]).filter((filtered) => filtered
+            .includes('Ingredient') && dataApi[0][filtered]);
+
+        setCloneIngredients(keysIngredients);
 
         const getRecomendationDrinks = await initialDrinks();
         setRecomendationDrinks(getRecomendationDrinks.drinks.slice(+'0', +'6'));
       };
-      fetchIdDetailsFoods();
+      ingredients();
     }
-  }, []);
+  }, [dataApi]);
 
   return (
     <div>

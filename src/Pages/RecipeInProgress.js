@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function FoodsInProgress({ match }) {
+export default function RecipeInProgress({ match }) {
   return (
     <div>
       {match.path}
@@ -9,7 +9,7 @@ export default function FoodsInProgress({ match }) {
   );
 }
 
-FoodsInProgress.propTypes = {
+RecipeInProgress.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string,
   }),
