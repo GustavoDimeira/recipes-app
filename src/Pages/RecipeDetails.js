@@ -88,38 +88,39 @@ export default function RecipeDetails({ match }) {
           <h4 data-testid="recipe-category">
             { element.strCategory }
           </h4>
-          <label htmlFor="favorite" className="container">
-            <input
-              type="checkbox"
-              name="favorite"
-              id="favorite"
-              value="favorite"
-              onChange={ ({ target }) => handleChecked(target, element) }
-              hidden
-              checked={ labelCheck }
-            />
-            <img
-              data-testid="favorite-btn"
-              src={ isFavorite }
-              alt="Is Favorite"
-            />
-          </label>
-          <button
-            data-testid="share-btn"
-            type="button"
-            name="share"
-            value="share"
-            onClick={ () => {
-              setmsgCopy(true);
-              navigator.clipboard.writeText(document.URL);
-            } }
-          >
-            <img
-              src={ Share }
-              alt="Share"
-            />
-
-          </button>
+          <div className="butons-favorite">
+            <label htmlFor="favorite" className="container">
+              <input
+                type="checkbox"
+                name="favorite"
+                id="favorite"
+                value="favorite"
+                onChange={ ({ target }) => handleChecked(target, element) }
+                hidden
+                checked={ labelCheck }
+              />
+              <img
+                data-testid="favorite-btn"
+                src={ isFavorite }
+                alt="Is Favorite"
+              />
+            </label>
+            <button
+              data-testid="share-btn"
+              type="button"
+              name="share"
+              value="share"
+              onClick={ () => {
+                setmsgCopy(true);
+                navigator.clipboard.writeText(document.URL);
+              } }
+            >
+              <img
+                src={ Share }
+                alt="Share"
+              />
+            </button>
+          </div>
           {msgCopy && <p>Link copied!</p>}
           <h2>Ingredients</h2>
           <div>
