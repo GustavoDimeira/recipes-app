@@ -104,8 +104,6 @@ footer {
 .recomendation-foods {
   align-content: stretch;
   display: flex;
-
-  /* justify-content: space-evenly; */
   overflow-x: scroll;
 }
 
