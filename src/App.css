@@ -15,6 +15,11 @@ header {
   width: 100%;
 }
 
+.btn-header-profile {
+  background-color: rgba(240, 248, 255, 0.993);
+  border: none;
+}
+
 .search-bar {
   display: flex;
   gap: 15px;
@@ -56,6 +61,13 @@ header {
   width: 25vw;
 }
 
+.profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 footer {
   background: #0fa36b;
   bottom: 0;
@@ -67,7 +79,13 @@ footer {
 }
 
 .button-icon-footer-foods {
+  border: none;
   margin-left: 30vw;
+}
+
+.button-icon-footer-drinks {
+  border: none;
+  margin: 2%;
 }
 
 .card-title {
@@ -183,6 +201,11 @@ footer {
   border: none;
   display: flex;
   justify-content: space-around;
+}
+
+.container-buton-profile {
+  display: flex;
+  gap: 10px;
 }
 
 .buton-recipes-favorites {
