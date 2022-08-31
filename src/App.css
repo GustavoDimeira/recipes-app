@@ -34,26 +34,13 @@ header {
   flex-direction: column;
   height: 40vh;
   justify-content: center;
-  width: 25vw;
+  width: 40vw;
 }
 
 .login:hover {
-  align-items: center;
-  background-color: hsl(157, 83%, 35%);
   border: 1px solid white;
   border-radius: 30px;
   box-shadow: 1px 3px 8px rgb(194, 187, 187);
-  display: flex;
-  flex-direction: column;
-  height: 40vh;
-  justify-content: center;
-  width: 25vw;
-}
-
-.container-login {
-  border: 50px;
-  margin-left: 80vh;
-  margin-top: 35vh;
 }
 
 .foto-foods {
@@ -114,6 +101,7 @@ footer {
 
 .button-Recipes {
   background-color: hsl(157, 83%, 35%);
+  border: none;
   color: #464646;
   font-family: sans-serif;
   padding: 5vw;
@@ -180,9 +168,45 @@ footer {
     height: 35vh;
     width: 20vw;
   }
+
+  .login {
+    align-items: center;
+    background-color: hsl(157, 83%, 35%);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 45vh;
+    justify-content: center;
+    width: 25vw;
+  }
+
+  .container-login {
+    border: 50px;
+    margin-left: 70vh;
+    margin-top: 25vh;
+  }
+
+
 }
 
 @media screen and ( max-device-width : 480px ) {
+
+  .login {
+    align-items: center;
+    background-color: hsl(157, 83%, 35%);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 45vh;
+    justify-content: center;
+    width: 55vw;
+  }
+
+  .container-login {
+    border: 50px;
+    margin-left: 20vh;
+    margin-top: 25vh;
+  }
 
   .foto-foods {
     height: 15vh;
