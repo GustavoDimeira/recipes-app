@@ -8,7 +8,7 @@ import DrinksProvider from "../context/DrinksProvider";
 import FoodsProvider from "../context/FoodsProvider";
 
 describe('Componente RecipeInProgress', () => {
-  it('/foods/:id/in-progress', async () => {
+  it('Verifica se todos os componentes é renderizado na tela', async () => {
     const history = createMemoryHistory();
     render(
       <Router history={history}>
@@ -35,5 +35,47 @@ describe('Componente RecipeInProgress', () => {
     expect(share).toBeDefined();
     expect(instructions).toBeDefined();
     expect(button).toBeDefined();
+  });
+
+  it('Interage com os componentes da tela', async () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={history}>
+        <FoodsProvider>
+          <DrinksProvider>
+            <App />
+          </DrinksProvider>
+        </FoodsProvider>
+      </Router>
+    );
+    history.push('/foods/52977/in-progress');
+
+    const favorite = await screen.findByTestId("favorite-button");
+    const favoriteSrc = await screen.findByTestId("favorite-btn")
+    const share = await screen.findByTestId("share-btn");
+    const button = await screen.findByTestId("finish-recipe-btn");
+    const textShare = screen.queryByText('Link copied!')
+    const checkbox1 = screen.getByTestId('data-testid=2-ingredient-step')
+    const checkbox2 = screen.getByTestId('data-testid=3-ingredient-step')
+    const checkbox3 = screen.getByTestId('data-testid=4-ingredient-step')
+
+    expect(favorite).toBeDefined();
+    userEvent.click(favorite)
+    expect(favoriteSrc).toHaveAttribute("src","blackHeartIcon.svg")
+    userEvent.click(favorite)
+    expect(favoriteSrc).toHaveAttribute("src","whiteHeartIcon.svg")
+    
+    expect(share).toBeDefined();
+    userEvent.click(share)
+    expect(textShare).toBeDefined();
+
+    userEvent.click(checkbox1);
+    userEvent.click(checkbox2);
+    userEvent.click(checkbox3);
+
+    expect(button).toBeDefined();
+    userEvent.click(button)
+    history.push('/done-recipes')
+    expect(history.location.pathname).toBe('/done-recipes');
   });
 });

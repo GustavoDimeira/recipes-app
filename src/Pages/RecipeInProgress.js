@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Share from '../images/shareIcon.svg';
@@ -10,6 +11,7 @@ export default function RecipeInProgress({ match }) {
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
   const [labelCheck, setLabelCheck] = useState(false);
+  const history = useHistory();
 
   const handleChecked = (target, element) => {
     setLabelCheck(!labelCheck);
@@ -42,7 +44,7 @@ export default function RecipeInProgress({ match }) {
   };
 
   useEffect(() => {
-    if (match.path === '/foods/:id') {
+    if (match.path === '/foods/:id/in-progress') {
       const favorite = localStorage.getItem('favoriteRecipes');
       const favoriteParse = JSON.parse(favorite);
       const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
@@ -93,6 +95,7 @@ export default function RecipeInProgress({ match }) {
               name="favorite"
               id="favorite"
               value="favorite"
+              data-testid="favorite-button"
               onChange={ ({ target }) => handleChecked(target, element) }
               hidden
               checked={ labelCheck }
@@ -110,7 +113,7 @@ export default function RecipeInProgress({ match }) {
             value="share"
             onClick={ () => {
               setmsgCopy(true);
-              navigator.clipboard.writeText(document.URL);
+              navigator.clipboard.writeText(`http://localhost:3000/foods/${match.params.id}`);
             } }
           >
             <img
@@ -144,7 +147,7 @@ export default function RecipeInProgress({ match }) {
           data-testid="finish-recipe-btn"
           className="btn-start-recipe"
           type="button"
-          onClick={ () => {} }
+          onClick={ () => { history.push('/done-recipes'); } }
         >
           Finish Recipe
         </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Share from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -11,7 +11,7 @@ export default function DrinksInProgress({ match }) {
   const [cloneIngredients, setCloneIngredients] = useState([]);
   const [isFavorite, setIsFavorite] = useState(whiteHeartIcon);
   const [labelCheck, setLabelCheck] = useState(false);
-  // const history = useHistory();
+  const history = useHistory();
 
   const handleChecked = (target, element) => {
     setLabelCheck(!labelCheck);
@@ -44,7 +44,7 @@ export default function DrinksInProgress({ match }) {
   };
 
   useEffect(() => {
-    if (match.path === '/drinks/:id') {
+    if (match.path === '/drinks/:id/in-progress') {
       const favorite = localStorage.getItem('favoriteRecipes');
       const favoriteParse = JSON.parse(favorite);
       const favorited = favoriteParse?.filter((id) => id.id === match.params.id);
@@ -111,7 +111,7 @@ export default function DrinksInProgress({ match }) {
             value="share"
             onClick={ () => {
               setmsgCopy(true);
-              navigator.clipboard.writeText(document.URL);
+              navigator.clipboard.writeText(`http://localhost:3000/drinks/${match.params.id}`);
             } }
           >
             <img src={ Share } alt="Share" />
@@ -141,7 +141,7 @@ export default function DrinksInProgress({ match }) {
           data-testid="finish-recipe-btn"
           className="btn-start-recipe"
           type="button"
-          onClick={ () => {} }
+          onClick={ () => { history.push('/done-recipes'); } }
         >
           Finish Recipe
         </button>
