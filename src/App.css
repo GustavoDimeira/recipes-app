@@ -197,15 +197,15 @@ footer {
     border-radius: 30px;
     display: flex;
     flex-direction: column;
-    height: 45vh;
+    height: 35vh;
     justify-content: center;
-    width: 55vw;
+    width: 70vw;
   }
 
   .container-login {
     border: 50px;
-    margin-left: 20vh;
-    margin-top: 25vh;
+    margin-left: 10vh;
+    margin-top: 30vh;
   }
 
   .foto-foods {
