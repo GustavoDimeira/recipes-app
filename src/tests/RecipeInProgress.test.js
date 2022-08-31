@@ -64,6 +64,7 @@ describe('Componente RecipeInProgress', () => {
     expect(favoriteSrc).toHaveAttribute("src","blackHeartIcon.svg")
     userEvent.click(favorite)
     expect(favoriteSrc).toHaveAttribute("src","whiteHeartIcon.svg")
+    localStorage.setItem('favoriteRecipes', JSON.stringify({ favoriteRecipes: 'trybe@teste.com' }));
     
     expect(share).toBeDefined();
     userEvent.click(share)
