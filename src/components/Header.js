@@ -15,6 +15,7 @@ export default function Header({ title, iconSearch }) {
           data-testid="button-icon"
           type="button"
           onClick={ () => { history.push('/profile'); } }
+          className="btn-header-profile"
         >
           <img
             src={ ProfileIcon }
