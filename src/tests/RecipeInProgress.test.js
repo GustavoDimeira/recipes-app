@@ -50,6 +50,18 @@ describe('Componente RecipeInProgress', () => {
     );
     history.push('/foods/52977/in-progress');
 
+    const storage = [{
+      id:"53060",
+      type:"food",
+      nationality:"Croatian",
+      category:"Side",
+      alcoholicOrNot:"",
+      name:"Burek",
+      image:"https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg",
+    }]
+
+    const clipboard = 'http://localhost:3000/foods/52977'
+
     const favorite = await screen.findByTestId("favorite-button");
     const favoriteSrc = await screen.findByTestId("favorite-btn")
     const share = await screen.findByTestId("share-btn");
@@ -60,15 +72,22 @@ describe('Componente RecipeInProgress', () => {
     const checkbox3 = screen.getByTestId('data-testid=4-ingredient-step')
 
     expect(favorite).toBeDefined();
+    expect(favoriteSrc).toHaveAttribute("src","whiteHeartIcon.svg")
     userEvent.click(favorite)
     expect(favoriteSrc).toHaveAttribute("src","blackHeartIcon.svg")
-    userEvent.click(favorite)
-    expect(favoriteSrc).toHaveAttribute("src","whiteHeartIcon.svg")
-    localStorage.setItem('favoriteRecipes', JSON.stringify({ favoriteRecipes: 'trybe@teste.com' }));
+
+    // localStorage.setItem('favoriteRecipes', JSON.stringify(storage))
+    // expect(window.localStorage.setItem).toHaveBeenCalledWith();
+    // // expect(localStorage.getItem).toHaveBeenCalled(mockReturn);
+
+    history.push('/foods/52977/in-progress')
+
     
     expect(share).toBeDefined();
     userEvent.click(share)
     expect(textShare).toBeDefined();
+    userEvent.click(share)
+    // expect(window.navigator.clipboard.writeText).toBeCalledWith(clipboard)
 
     userEvent.click(checkbox1);
     userEvent.click(checkbox2);

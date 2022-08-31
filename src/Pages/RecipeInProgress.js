@@ -77,45 +77,7 @@ export default function RecipeInProgress({ match }) {
     <div>
       {dataApi.map((element, index) => (
         <div key={ index }>
-          <img
-            className="foto-foods"
-            data-testid="recipe-photo"
-            src={ element.strMealThumb }
-            alt={ element.strMealThumb }
-          />
-          <h1 data-testid="recipe-title">
-            {element.strMeal}
-          </h1>
-          <h4 data-testid="recipe-category">
-            {element.strCategory}
-          </h4>
-          <label htmlFor="favorite" className="container">
-            <input
-              type="checkbox"
-              name="favorite"
-              id="favorite"
-              value="favorite"
-              data-testid="favorite-button"
-              onChange={ ({ target }) => handleChecked(target, element) }
-              hidden
-              checked={ labelCheck }
-            />
-            <img
-              data-testid="favorite-btn"
-              src={ isFavorite }
-              alt="Is Favorite"
-            />
-          </label>
-          <button
-            data-testid="share-btn"
-            type="button"
-            name="share"
-            value="share"
-            onClick={ () => {
-              setmsgCopy(true);
-              navigator.clipboard.writeText(`http://localhost:3000/foods/${match.params.id}`);
-            } }
-          >
+          <div className="details-container">
             <img
               className="video"
               data-testid="recipe-photo"
@@ -135,6 +97,7 @@ export default function RecipeInProgress({ match }) {
                   name="favorite"
                   id="favorite"
                   value="favorite"
+                  data-testid="favorite-button"
                   onChange={ ({ target }) => handleChecked(target, element) }
                   hidden
                   checked={ labelCheck }
@@ -152,7 +115,7 @@ export default function RecipeInProgress({ match }) {
                 value="share"
                 onClick={ () => {
                   setmsgCopy(true);
-                  navigator.clipboard.writeText(document.URL);
+                  navigator.clipboard.writeText(`http://localhost:3000/foods/${match.params.id}`);
                 } }
               >
                 <img

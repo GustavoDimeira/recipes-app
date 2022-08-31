@@ -94,6 +94,7 @@ export default function DrinksInProgress({ match }) {
               name="favorite"
               id="favorite"
               value="favorite"
+              data-testid="favorite-button"
               onChange={ ({ target }) => handleChecked(target, element) }
               hidden
               checked={ labelCheck }
