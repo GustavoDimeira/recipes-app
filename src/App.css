@@ -15,6 +15,11 @@ header {
   width: 100%;
 }
 
+.btn-header-profile {
+  background-color: rgba(240, 248, 255, 0.993);
+  border: none;
+}
+
 .search-bar {
   display: flex;
   gap: 15px;
@@ -56,6 +61,13 @@ header {
   width: 25vw;
 }
 
+.profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 footer {
   background: #0fa36b;
   bottom: 0;
@@ -67,7 +79,13 @@ footer {
 }
 
 .button-icon-footer-foods {
+  border: none;
   margin-left: 30vw;
+}
+
+.button-icon-footer-drinks {
+  border: none;
+  margin: 2%;
 }
 
 .card-title {
@@ -110,6 +128,8 @@ footer {
 .card-recommended {
   align-content: center;
   align-items: center;
+  background-color: white;
+  border: none;
   display: flex;
   flex-direction: row;
   flex-grow: 3;
@@ -137,4 +157,112 @@ footer {
 
 .container input:checked {
   background-color: #ff0a54;
+}
+
+
+@media screen and ( min-width : 480px ) {
+
+  .foto-foods {
+    height: 25vh;
+    width: 15vw;
+  }
+
+  .ingredient-details {
+    background-color: grey;
+    color: white;
+    font-family: sans-serif;
+    padding: 15px;
+    text-align: center;
+    width: 90vw;
+  }
+
+  .video {
+    height: 35vh;
+    width: 20vw;
+  }
+}
+
+@media screen and ( max-device-width : 480px ) {
+
+  .foto-foods {
+    height: 15vh;
+    width: 25vw;
+  }
+
+  .ingredient-details {
+    background-color: grey;
+    color: white;
+    font-family: sans-serif;
+    padding: 15px;
+    text-align: center;
+    width: 95%;
+  }
+
+  .video {
+    height: 30vh;
+    width: 100%;
+  }
+}
+
+.card-recipes-favorites {
+  align-items: center;
+  background-color: white;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.details-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.container-card-recipes-favorites {
+  align-items: center;
+  background-color: white;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-buton-recipes-favorites {
+  align-items: center;
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.container-buton-profile {
+  display: flex;
+  gap: 10px;
+}
+
+.buton-recipes-favorites {
+  background-color: hsl(157, 83%, 35%);
+  border: none;
+  color: #464646;
+  font-family: sans-serif;
+  margin: 35px;
+  width: 30%;
+}
+
+.container-map {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.butons-favorite {
+  display: flex;
+  flex-direction: row;
+}
+
+.butons-favorite > button {
+  background-color: white;
+  border: none;
 }
